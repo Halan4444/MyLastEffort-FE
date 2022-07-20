@@ -1,0 +1,120 @@
+<app-main-title title="Create a new quiz" type="special"></app-main-title>
+<form class="form" *ngIf="quizCreateForm" [formGroup]="quizCreateForm" (ngSubmit)="onSubmit()">
+  <div class="form__input-boxes">
+    <div class="form__input-box form__input-box--content-center">
+      <label class="form__label" for="title">Nazwa quizu</label>
+      <div class="relative-box">
+        <input class="form__input form__input--width-auto" type="text" id="title" formControlName="title" />
+        <div *ngIf="title.invalid && (title.touched || title.dirty)" class="form__error">Pole jest wymagane!</div>
+      </div>
+    </div>
+  </div>
+  <div formGroupName="config">
+    <div class="form__input-boxes">
+      <div class="form__input-box form__input-box--content-center">
+        <p class="form__label" for="quizWithResult">Rodzaj quizu:</p>
+        <label class="form__input-radio-box form__input-radio-box--with-padding">
+          <input class="form__input-radio" type="radio" id="quizWithResult" [checked]="true" [value]="true" formControlName="quizWithResult">
+          <span class="form__checkmark">
+            <fa-icon [icon]="faCheck" class="form__check-icon"></fa-icon>
+          </span>
+          <p class="form__label form__label--with-margin">Quiz z wynikiem</p>
+        </label>
+        <label class="form__input-radio-box form__input-radio-box--with-padding">
+          <input class="form__input-radio" type="radio" id="quizWithResult" [value]="false" formControlName="quizWithResult">
+          <span class="form__checkmark">
+            <fa-icon [icon]="faCheck" class="form__check-icon"></fa-icon>
+          </span>
+          <p class="form__label form__label--with-margin">Ankieta</p>
+        </label>
+      </div>
+      <div *ngIf="quizWithResult.value" class="form__input-box form__input-box--content-center form__input-box--with-margin">
+        <label class="form__label" for="numberAnswersNeededToPass">Ilość poprawnych odpowiedzi potrzebna do zaliczenia testu:</label>
+        <div class="relative-box">
+          <input class="form__input form__input--width-auto" type="number" min="1" id="numberAnswersNeededToPass" formControlName="numberAnswersNeededToPass">
+          <div *ngIf="numberAnswersNeededToPass.errors && numberAnswersNeededToPass.errors.amountAnswers" class="form__error">Wartość większa niż ilość pytań</div>
+          <div *ngIf="numberAnswersNeededToPass.touched && numberAnswersNeededToPass.errors && numberAnswersNeededToPass.errors.required" class="form__error">Pole nie może być puste!</div>
+        </div>
+      </div>
+      <div class="form__input-box form__input-box--content-center">
+        <p class="form__label" for="quizOnTime">Czy chcesz ograniczyć czas trwania quizu?</p>
+        <label class="form__input-radio-box form__input-radio-box--with-padding">
+          <input class="form__input-radio" type="radio" id="quizOnTime" [value]="true" formControlName="quizOnTime" [checked]="true">
+          <span class="form__checkmark">
+            <fa-icon [icon]="faCheck" class="form__check-icon"></fa-icon>
+          </span>
+          <p class="form__label form__label--with-margin">Quiz na czas</p>
+        </label>
+        <label class="form__input-radio-box form__input-radio-box--with-padding">
+          <input class="form__input-radio" type="radio" id="quizOnTime" [value]="false" formControlName="quizOnTime">
+          <span class="form__checkmark">
+            <fa-icon [icon]="faCheck" class="form__check-icon"></fa-icon>
+          </span>
+          <p class="form__label form__label--with-margin">Quiz bez limitu czasu</p>
+        </label>
+      </div>
+      <div *ngIf="quizOnTime.value" class="form__input-box form__input-box--content-center">
+        <label class="form__label" for="timeInSeconds">Czas testu w sekundach:</label>
+        <div class="relative-box">
+          <input class="form__input form__input--width-auto" type="number" min="1" id="timeInSeconds" formControlName="timeInSeconds">
+          <div *ngIf="timeInSeconds.touched && timeInSeconds.errors && timeInSeconds.errors.required" class="form__error">Pole nie może być puste!</div>
+          <div *ngIf="timeInSeconds.errors && timeInSeconds.errors.min" class="form__error">Wartość musi być większa niż 0</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form__input-boxes" formArrayName="questions">
+    <div class="form__input-box form__input-box--with-margin">
+      <p class="form__label form__label--accent">Aktualna ilość pytań: {{ questionsArray['controls'].length }}</p>
+      <button class="form__button" type="button" (click)="addQuesion()">Dodaj pytanie</button>
+    </div>
+    <div *ngFor="let questionGroup of questionsArray['controls']; let i = index;" [formGroupName]="i" class="form__questions">
+      <div class="form__input-box">
+        <div class="form__col-20">
+          <label class="form__label form__label--accent" for="question">Pytanie numer {{ i + 1 }}</label>
+        </div>
+        <div class="form__col-30">
+          <input class="form__input" type="text" id="question" formControlName="question">
+          <div *ngIf="questionGroup['controls'].question.invalid && questionGroup['controls'].question.touched && questionGroup['controls'].question.errors.required" class="form__error">*Pole jest wymagane!</div>
+        </div>
+        <div class="form__col-30">
+          <button class="form__button" type="button" (click)="addAnswer(i)">Dodaj odpowiedź</button>
+        </div>
+        <div class="form__col-20">
+          <button class="form__button" type="button" (click)="removeQuestion(i)">Usuń pytanie</button>
+        </div>
+      </div>
+      <div formArrayName="answers">
+        <div *ngFor="let answer of questionGroup['controls'].answers['controls']; let j = index;">
+            <div class="form__input-box">
+              <div class="form__col-20">
+                <label class="form__label" for="answer">Odpowiedź {{ j + 1 }}</label>
+              </div>
+              <div class="form__col-30">
+                <input class="form__input" type="text" id="answer" [formControlName]="j">
+                <div *ngIf="answer.invalid && (answer.touched || answer.dirty)" class="form__error">*Pole jest wymagane!</div>
+                <div *ngIf="questionGroup['controls'].answers.errors && questionGroup['controls'].answers.errors['sameInputValue'] && j == questionGroup['controls'].answers.errors['sameInputValue']" class="form__error">*Wartość taka sama</div>
+              </div>
+              <i class="fas fa-check"></i>
+              <label class="form__col-30 form__input-radio-box">
+                <input class="form__input-radio" *ngIf="j === 0; else input_no_checked" type="radio" [disabled]="!quizWithResult.value" [checked]="quizWithResult.value" (input)="setCorrectAnswer(j, i)" name='{{ i }}' >
+                <ng-template #input_no_checked>
+                  <input class="form__input-radio" type="radio" [disabled]="!quizWithResult.value" (input)="setCorrectAnswer(j, i)" name='{{ i }}'>
+                </ng-template>
+                <span class="form__checkmark" [ngClass]="{'form__checkmark--input-disabled': !quizWithResult.value}">
+                  <fa-icon [icon]="faCheck" class="form__check-icon"></fa-icon>
+                </span>
+                <p class="form__label form__label--with-margin" [ngClass]="{'form__label--input-disabled': !quizWithResult.value}">Poprawna odpowiedź</p>
+              </label>
+              <div class="form__col-20">
+                <button class="form__button" type="button" (click)="removeAnswer(i, j)">Usuń odpowiedź</button>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form__button-container">
+    <input type="submit" class="form__button form__button--submit" [ngClass]="{'form__button--error': quizCreateForm.invalid}" [disabled]="quizCreateForm.invalid" />
+  </div>
+</form>

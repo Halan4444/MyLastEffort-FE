@@ -1,0 +1,51 @@
+<div class="quiz-options" *ngIf="quiz">
+  <div class="input-radio one-a jshdgdgwgdwfdfwdwjfdjwwdwdco" *ngFor="let question of quiz.questions | keyvalue, let i = index">
+    <app-question-form
+      [answers]="getAnswers()"
+      [activeQuestion]="i"
+      (selectedAnswer)="changeAnswer($event)"
+      *ngIf="activeQuestion === i"
+      [question]="question">
+    </app-question-form>
+  </div>
+  <div class="quiz-details__buttons">
+    <button class="button-with-arrow" (click)="changeActiveQuestion('prev')">
+      <div class="button-with-arrow__arrow"></div>
+    </button>
+    <button class="button-with-arrow" (click)="changeActiveQuestion('next')">
+        <div class="button-with-arrow__arrow button-with-arrow__arrow--right"></div>
+    </button>
+  </div>
+  <div class="quiz-details__info-container">
+    <p class="quiz-details__info-text">Pytanie {{ activeQuestion + 1 }} z {{ quiz.questions.length }}</p>
+    <app-quiz-timer *ngIf="quizOnTime" (timeValueChange)="quizTimeValueChange($event)" [quizTime]="quiz.config.timeInSeconds"></app-quiz-timer>
+    <a class="button" [routerLink]="['/quizzes/quiz/result/', quizId]">Zakończ Quiz</a>
+  </div>
+</div>
+
+<section class="section-1" id="section-1">
+  <main>
+    <div class="text-container">
+      <h3>Pure CSS Quiz</h3>
+      <p>QUESTION 1 OF 5</p>
+      <p>What does CSS stand for?</p>
+    </div>
+    <form>
+      <div class="quiz-options">
+        <input type="radio" class="input-radio one-a jshdgdgwgdwfdfwdwjfdjwwdwdco" id="one-a" name="yes-1" required>
+        <label class="radio-label jsjwjdwjdwjdwco" for="one-a">
+          <span class="alphabet">A</span> Cascading Style Sheets <img class="icon jdsjkefkefkefefexco" src="https://res.cloudinary.com/dvhndpbun/image/upload/v1588518387/jdsjkefkefkefefexco.svg" alt="">
+        </label>
+        <input type="radio" class="input-radio one-b jshdgdgwgdwfdfwdwjfdjwwdwdin" id="one-b" name="yes-1">
+        <label class="radio-label jsjwjdwjdwjdwin" for="one-b">
+          <span class="alphabet">B</span> Creative Screen Styling <img class="icon jfdedgwfzexf4hjin" src="https://res.cloudinary.com/dvhndpbun/image/upload/v1588517753/jfdedgwfzexf4hjin.svg">
+        </label>
+        <input type="radio" class="input-radio one-c jshdgdgwgdwfdfwdwjfdjwwdwdin" id="one-c" name="yes-1">
+        <label class="radio-label jsjwjdwjdwjdwin" for="one-c">
+          <span class="alphabet">C</span> Cascading Style Screen <img class="icon jfdedgwfzexf4hjin" src="https://res.cloudinary.com/dvhndpbun/image/upload/v1588517753/jfdedgwfzexf4hjin.svg">
+        </label>
+      </div>
+      <a id="btn" type="submit" onclick="window.location.href='#section-2'">Next</a>
+    </form>
+  </main>
+</section>

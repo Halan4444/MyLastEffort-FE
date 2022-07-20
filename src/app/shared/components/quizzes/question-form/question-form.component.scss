@@ -1,0 +1,110 @@
+@import '../../../../../assets/scss/variables.scss';
+
+.question-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__question {
+    color: $medium-dark;
+    text-align: center;
+    font-size: 3em;
+    margin: 0 0 50px 0;
+  }
+
+  &__answer {
+    color: $medium-dark;
+    font-size: 3em;
+    margin-left: 30px;
+  }
+
+  &__inputs-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  &__input-box {
+    position: relative;
+    display: flex;
+    padding-left: 25px;
+    margin: 20px;
+    cursor: pointer;
+
+    &:hover input ~ .question-form__checkmark {
+      background-color: #ccc;
+    }
+
+    & input:checked ~ .question-form__checkmark {
+      background-color: $accent;
+    }
+  }
+
+  &__input {
+    position: absolute;
+    opacity: 0;
+    z-index: 99;
+  }
+
+  &__checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 40px;
+    width: 40px;
+    background-color: #eee;
+    border-radius: 50%;
+    z-index: 99;
+
+    &:after {
+      content: "";
+      position: absolute;
+      display: none;
+      z-index: 99;
+    }
+  }
+
+  &__input-box input:checked ~ .question-form__checkmark:after {
+    display: block;
+  }
+
+  &__input-box .question-form__checkmark:after {
+    top: 9px;
+    left: 9px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: $bright;
+  }
+}
+
+@media screen and (min-width:768px) {
+  .question-form {
+    &__answer {
+      font-size: 2em;
+      margin-left: 10px;
+    }
+
+    &__checkmark {
+      height: 25px;
+      width: 25px;
+
+      &:after {
+        content: "";
+        position: absolute;
+        display: none;
+        z-index: 99;
+      }
+    }
+
+    &__input-box .question-form__checkmark:after {
+      width: 8px;
+      height: 8px;
+    }
+
+    &__inputs-container {
+      flex-direction: row;
+    }
+  }
+}

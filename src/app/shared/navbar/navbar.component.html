@@ -1,0 +1,110 @@
+
+<nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row" style="background-color: rgba(38,16,16,0.6); !important;">
+
+  <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center ">
+    <a class="navbar-brand brand-logo mr-5" routerLink="/home"><img src="assets/diosa.png" class="mr-2" alt="logo" style="height: 50px;width: 155px "/></a>
+<!--    <a class="navbar-brand brand-logo-mini" routerLink="/home"><img src="assets/images/logo-mini.svg" alt="logo"/></a>-->
+  </div>
+  <!--      //nav right-->
+  <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end ">
+    <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+      <span class="ti-view-list"></span>
+    </button>
+    <ul class="navbar-nav mr-lg-2">
+      <li class="nav-item nav-search d-none d-lg-block">
+        <div class="input-group">
+          <div class="input-group-prepend hover-cursor" id="navbar-search-icon">
+                <span class="input-group-text" id="search">
+                  <i class="ti-search"></i>
+                </span>
+          </div>
+          <input type="text" class="form-control "
+                 id="navbar-search-input" placeholder="Search now"
+                 aria-label="search" aria-describedby="search"
+          [(ngModel)]="searchTitleBoard"
+          style="color: black !important;">
+        </div >
+      </li>
+      <li>
+
+      </li>
+
+    </ul>
+    <ul class="navbar-nav navbar-nav-right">
+      <li class="nav-item dropdown" style="border-radius: 10px">
+        <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown" (click)="readNoti()">
+          <i class="ti-bell mx-0"></i>
+          <span class="count" style="background-color: red" [hidden]="isCheckNoti"></span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
+             aria-labelledby="notificationDropdown"
+             style="border-radius: 10px; max-height: 500px; overflow-y: auto"
+            >
+          <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
+          <a class="dropdown-item"
+             *ngFor="let noti of notification"
+             [ngStyle]="{'background-color': noti?.status ? 'white'  : 'rgba(127, 131, 138, 0.2)' }"
+             (click)="markAsRead(noti.id)"
+              routerLink="{{noti.link}}" >
+            <div class="item-thumbnail">
+              <div class="item-icon bg-success">
+                <img src="{{noti.sender?.avatar}}" alt="">
+              </div>
+            </div>
+            <div class="item-content">
+              <p class="font-weight-normal"><strong>{{noti.sender?.username}}</strong> - {{noti?.action}}</p>
+              <p class="font-weight-light small-text mb-0 text-muted">
+               {{noti?.date}}
+              </p>
+            </div>
+          </a>
+        </div>
+      </li>
+
+      <li class="nav-item nav-profile dropdown">
+        <a class="nav-link dropdown-toggle" style="color: #151515"  data-toggle="dropdown" id="profileDropdown">
+          <img src="{{user?.avatar}}" alt="profile"/> {{user?.username}}
+        </a>
+        <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
+             style="border-radius: 10px"
+             aria-labelledby="profileDropdown">
+          <a class="dropdown-item" routerLink="/user/information">
+            <i class="ti-settings text-primary"></i>
+            Thông tin cá nhân
+          </a>
+          <a class="dropdown-item" routerLink="/user/change-password">
+            <i class="ti-pencil text-primary"></i>
+            Đổi mật khẩu
+          </a>
+<!--          <a class="dropdown-item" style="cursor: pointer">-->
+<!--            <label for="file"><i class="ti-file text-primary"></i>-->
+<!--              Đổi ảnh đại diện</label>-->
+<!--            <input type="file"-->
+<!--                   id="file"-->
+<!--                   #userPhoto-->
+<!--                   (change)="onFileSelected($event)"-->
+<!--                   name="image"-->
+<!--                   autocomplete="off"-->
+<!--                   hidden-->
+<!--            />-->
+<!--          </a>-->
+          <a class="dropdown-item" (click)="logout()">
+            <i class="ti-power-off text-primary"></i>
+            Đăng xuất
+          </a>
+        </div>
+      </li>
+    </ul>
+    <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+      <span class="ti-view-list"></span>
+    </button>
+  </div>
+</nav>
+
+<!--<div style="position: fixed;margin-top: 69px; margin-left: 20%; border-bottom-left-radius: 10px;border-bottom-right-radius: 10px;background-color: white"-->
+<!--     *ngIf="searchTitleBoard != null && searchTitleBoard != '' "-->
+<!--&gt;-->
+<!--  <div style="width: 400px;height: 55px;padding: 10px 0px 10px 50px;z-index: 10000"-->
+<!--       *ngFor="let b of board | searchBoardFillter:searchTitleBoard">-->
+<!--    <a routerLink="/tasks/list/{{b.id}}" (click)="resetSearch()">{{b.title}}</a></div>-->
+<!--</div>-->

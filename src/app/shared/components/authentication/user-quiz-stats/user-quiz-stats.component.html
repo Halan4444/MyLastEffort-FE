@@ -1,0 +1,18 @@
+<app-main-title *ngIf="quiz" title="Wyniki {{ quizType }}: {{ quiz.title }}" type="special"></app-main-title>
+<div *ngIf="quiz" class="quiz-stats">
+  <div *ngIf="quiz.config.quizWithResult" class="quiz-stats__box">
+    <p class="quiz-stats__info">Ilość osób która zaliczyła quiz: <span class="quiz-stats__info--value">{{ quizStats.quizPassed }}</span></p>
+    <p class="quiz-stats__info">Ilość osób która nie zaliczyła quizu: <span class="quiz-stats__info--value">{{ quizStats.quizNotPassed }}</span></p>
+  </div>
+  <div class="quiz-stats">
+    <div *ngFor="let result of quiz.results; let i = index" class="quiz-stats__box quiz-stats__box--column">
+      <p class="quiz-stats__user-info quiz-stats__user-info--user">Użytkownik {{ i + 1 }} <span *ngIf="quiz.config.quizWithResult" class="quiz-stats__user-info--value">- {{ result.result ? 'quiz zaliczony' : 'quiz niezaliczony' }}</span></p>
+      <p class="quiz-stats__user-info quiz-stats__user-info--title"><span class="quiz-stats__user-info--value">Odpowiedzi użytkownika na poszczególne pytania:</span></p>
+      <div *ngFor="let answer of result.answers; let j = index" class="quiz-stats__box-answers">
+        <p class="quiz-stats__user-info">Pytanie {{ j + 1 }}: <span class="quiz-stats__user-info--value">{{ quiz.questions[j].question }}</span></p>
+        <p class="quiz-stats__user-info">Odpowiedź użytkownika: <span class="quiz-stats__user-info--value">{{ answer.answer ? answer.answer : 'brak odpowiedzi' }}</span></p>
+        <p *ngIf="quiz.config.quizWithResult" class="quiz-stats__user-info">Prawidłowa odpowiedź: <span class="quiz-stats__user-info--value">{{ answer.correctAnswer }}</span></p>
+      </div>
+    </div>
+  </div>
+</div>

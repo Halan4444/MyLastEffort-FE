@@ -1,0 +1,14 @@
+<app-main-title *ngIf="numberAnswersNeededToPass" title="Quiz Result" type="special"></app-main-title>
+<div *ngIf="numberAnswersNeededToPass; else surveyType" class="quiz-result">
+  <p *ngIf="numberAnswersNeededToPass" class="quiz-result__info">Number of good answers:  <span class="quiz-result__info--value">{{ quizResult.numberGoodAnswers }}</span></p>
+  <p *ngIf="numberAnswersNeededToPass" class="quiz-result__info">Number of wrong answers: <span class="quiz-result__info--value">{{ quizResult.numberWrongAnswers }}</span></p>
+  <p *ngIf="numberAnswersNeededToPass" class="quiz-result__info">Number of answers needed to pass the test:  <span class="quiz-result__info--value">{{ numberAnswersNeededToPass }}</span></p>
+  <div *ngIf="quizResult.result; then quizPassed else quizFailed"></div>
+  <ng-template #quizPassed><p class="quiz-result__result">Test Passed. Bravo!</p></ng-template>
+  <ng-template #quizFailed class="quiz-result__result"><p class="quiz-result__result">Number of answers needed to pass the test: </p></ng-template>
+</div>
+<ng-template #surveyType>
+  <div class="quiz-result">
+    <p class="quiz-result__info">Thank you for completing the survey! :)</p>
+  </div>
+</ng-template>

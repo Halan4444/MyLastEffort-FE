@@ -1,0 +1,29 @@
+@import 'variables.scss';
+
+.paragraph {
+  font-size: 2em;
+  font-weight: 400;
+  line-height: 25px;
+  color: $medium-dark;
+  text-align: center;
+  margin: 20px 0;
+
+  &--large {
+    font-size: 1.5em;
+  }
+
+  &--accent {
+    color: $accent;
+    font-weight: 700;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .paragraph {
+    font-size: 1.3em;
+
+    &--large {
+      font-size: 1.5em;
+    }
+  }
+}

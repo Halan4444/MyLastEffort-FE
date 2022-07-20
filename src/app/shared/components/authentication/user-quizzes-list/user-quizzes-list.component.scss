@@ -1,0 +1,79 @@
+@import '../../../../../assets/scss/variables.scss';
+
+.user-quizzes-list {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  &__boxes {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    border-bottom: 1px solid $very-bright;
+    margin: 10px 0;
+    padding: 0 0 30px 0;
+  }
+
+  &__box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 10px 0;
+  }
+
+  &__quiz-info {
+    font-size:1.5em;
+    color: $dark;
+    margin-right: 10px;
+    text-align: center;
+
+    &--accent {
+      color: $accent;
+      font-weight: 700;
+    }
+  }
+
+  &__link-to-quiz {
+    font-size:1em;
+    color: $dark;
+    margin-right: 10px;
+    text-align: center;
+  }
+
+  &__button {
+    width: 100%;
+    background: $accent;
+    color: $bright;
+    border: none;
+    border-radius: 3px;
+    font-size: 1.3em;
+    text-decoration: none;
+    padding: 10px 20px;
+    text-align: center;
+    cursor: pointer;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .user-quizzes-list {
+    &__boxes {
+      padding: 0;
+      margin: 0;
+    }
+
+    &__box {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      width: 20%;
+      padding: 20px 0;
+    }
+
+    &__button {
+      margin-left: 20px
+    }
+  }
+}

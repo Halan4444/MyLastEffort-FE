@@ -1,0 +1,30 @@
+
+<div class="container-scroller" style="background-image: url('assets/home.png');width: 100%">
+  <!--  navbar-->
+  <ng-container *ngIf="currentUser!= null" style="background:none">
+
+      <app-navbar></app-navbar>
+
+  </ng-container>
+
+
+  <div class="container-fluid page-body-wrapper" >
+    <!--  sidebar-->
+    <nav class="sidebar sidebar-offcanvas" id="sidebar" style="background: none" >
+      <div style="background-color: rgb(253,253,253);
+     border: 1px solid rgba(224,218,218,0.39); width: 100%;height: 100%">
+        <app-sidebar></app-sidebar>
+      </div>
+
+    </nav>
+
+
+
+    <div class="main-panel" style="width: 100%; background: none" >
+<!--    <div class="content-wrapper" style="background: none;width: 92%; max-height: 95%">-->
+    <router-outlet></router-outlet>
+<!--    </div>-->
+    <!--footer-->
+  </div>
+  </div>
+</div>

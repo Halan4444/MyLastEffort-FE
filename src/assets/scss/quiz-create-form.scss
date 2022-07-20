@@ -1,0 +1,297 @@
+@import 'variables.scss';
+
+.relative-box {
+  position: relative;
+  width: 100%;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 10px;
+
+  &--row-direction {
+    flex-direction: row;
+  }
+
+  &__col, &__col-10, &__col-20, &__col-30 {
+    width: 100%;
+  }
+
+  &__input-boxes {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid $medium-bright;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 20px;
+
+    &--row-direction {
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+
+  &__input-box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 10px;
+
+    &--content-center {
+      justify-content: center;
+    }
+
+    &--column-direction {
+      flex-direction: column;
+    }
+
+    &--with-margin {
+      margin:  0 0 30px 0;
+    }
+
+    &--large-padding {
+      padding: 10px 10px 30px 10px;
+    }
+  }
+
+  &__questions {
+    margin: 20px 0;
+  }
+
+  &__label {
+    font-size: 2em;
+    color: $dark;
+    margin: 0 0 10px 0;
+    text-align: center;
+
+    &--accent {
+      color: $accent;
+      font-weight: 700;
+    }
+
+    &--with-margin {
+      margin: 0 0 0 10px;
+    }
+
+    &--input-disabled {
+      color: $very-bright;
+    }
+  }
+
+  &__input {
+    height: 35px;
+    border: 1px solid $medium-bright;
+    border-radius: 5px;
+    width: 100%;
+  }
+
+  &__button-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+    width: 100%;
+  }
+
+  &__button {
+    width: 100%;
+    background: $accent;
+    color: $bright;
+    border: none;
+    border-radius: 3px;
+    font-size: 1.3em;
+    text-decoration: none;
+    padding: 10px 20px;
+    margin: 5px 0;
+
+    &--error {
+      background: $very-bright;
+    }
+  }
+
+  /* The container */
+  &__input-radio-box {
+    position: relative;
+    display: flex;
+    margin: 10px 0;
+    cursor: pointer;
+
+    /* When the radio button is checked, add a blue background */
+    & input:checked ~ .form__checkmark {
+      background-color: $accent;
+    }
+
+    & input:disabled ~ .form__checkmark {
+      background-color: $very-bright;
+    }
+  }
+
+  /* Hide the browser's default radio button */
+  &__input-radio {
+    position: absolute;
+    opacity: 0;
+    z-index: 99;
+  }
+
+  /* Create a custom radio button */
+  &__checkmark {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: $accent;
+    // border-radius: 50%;
+    z-index: 99;
+
+    &--input-disabled {
+      background-color: $very-bright;
+    }
+
+    /* Create the indicator (the dot/circle - hidden when not checked) */
+    &:after {
+      content: "";
+      position: absolute;
+      // display: none;
+      z-index: 1;
+    }
+  }
+
+  &__check-icon {
+    display: none;
+    position: absolute;
+    top: 3px;
+    left: 5px;
+    z-index: 2;
+    font-size: 1.5em;
+    color: $accent;
+  }
+
+  /* Show the indicator (dot/circle) when checked */
+  &__input-radio-box input:checked ~ .form__checkmark:after {
+    display: block;
+  }
+
+  &__input-radio-box input:checked ~ .form__checkmark .form__check-icon {
+    display: block;
+  }
+
+  &__input-radio-box input:disabled ~ .form__checkmark .form__check-icon {
+    color: $bright;
+  }
+
+  /* Style the indicator (dot/circle) */
+  &__input-radio-box .form__checkmark:after {
+    top: 2px;
+    left: 2px;
+    width: 21px;
+    height: 21px;
+    background: $bright;
+  }
+
+  &__error {
+    position: absolute;
+    top: 36px;
+    font-size: 1.2em;
+    color: $error;
+    font-weight: 600;
+  }
+
+  &__register-text {
+    font-size: 1.3em;
+    color: $medium-bright;
+    margin: 0 20px 0 0;
+  }
+
+  &__register-link {
+    color: $medium-dark;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .relative-box {
+    width: auto;
+  }
+
+  .form {
+    padding: 0 50px;
+
+    &__input-box {
+      flex-direction: row;
+      align-items: center;
+      flex-wrap: nowrap;
+
+      &--with-margin {
+        margin:  10px;
+      }
+
+      &--align-right {
+        justify-content: flex-end;
+      }
+    }
+
+    &__col {
+      display: flex;
+      justify-content: flex-start;
+      width: 25%;
+    }
+
+    &__col-10 {
+      display: flex;
+      justify-content: flex-start;
+      width: 10%;
+    }
+
+    &__col-20 {
+      display: flex;
+      justify-content: flex-start;
+      width: 20%;
+    }
+
+    &__col-30 {
+      position: relative;
+      display: flex;
+      justify-content: flex-start;
+      width: 30%;
+    }
+
+    &__input {
+      width: 90%;
+
+      &--width-auto {
+        width: auto;
+      }
+    }
+
+    &__label {
+      font-size: 1.5em;
+      text-align: left;
+      margin: 0 10px 0 0;
+
+      &--with-margin {
+        margin: 2px 0 0 5px;
+      }
+    }
+
+    &__button {
+      width: auto;
+      min-width: 136px;
+      cursor: pointer;
+
+      &--submit {
+        padding: 10px 60px;
+      }
+    }
+
+    &__input-radio-box {
+      margin: 0;
+
+      &--with-padding {
+        padding-left: 25px;
+      }
+    }
+  }
+}

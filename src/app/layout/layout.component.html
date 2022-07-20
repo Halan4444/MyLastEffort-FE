@@ -1,0 +1,83 @@
+<div class="row" style="margin: 35px 0px 0px 20px">
+  <div>
+  <h2 style="color: #fdfdfd">Dự án</h2>
+  <div>
+    <br>
+  <ng-container >
+    <div class="row" style="max-width: 93%;word-wrap: break-word">
+      <div *ngFor="let p of projects" class="example-list" style="background-color: rgba(218,217,217,0.85);
+      width: 160px;height: 90px;border-radius: 10px;padding: 3px 0px 0px 5px;
+      padding-left: 5px;font-size: 23px;margin-top: 10px;margin-left: 20px;overflow: hidden">
+        <a style="text-decoration: none; color: #1e1e1e"
+           routerLink="/projects/{{p.id}}">{{p.title}}</a>
+      </div>
+  </div>
+  </ng-container>
+  </div>
+  </div>
+<div style="margin-top: 40px">
+    <h2 style="color: #fdfdfd">Dự án của Lan &nbsp;  <button class="btn btn-success"><a style="text-decoration: none;color: white" routerLink="/projects/create">Thêm dự án</a></button>
+    </h2>
+  <br>
+  <ng-container >
+    <div class="row" style="max-width: 90%; word-wrap: break-word">
+      <div *ngFor="let p of myProjects"  style="background-color: rgba(218,217,217,0.85);
+    width: 160px;height: 90px;border-radius: 10px;padding: 3px 0px 0px 5px;
+    padding-left: 5px;font-size: 23px;margin-top: 10px;margin-left: 20px;overflow: hidden" >
+        <a style="text-decoration: none; color: #1e1e1e" routerLink="/projects/{{p.id}}">{{p.title}}</a>
+      </div>
+    </div>
+  </ng-container>
+</div>
+  <div style="margin-top: 40px">
+    <h2 style="color: #fdfdfd">Danh sách câu hỏi&nbsp;  <button class="btn btn-success"><a style="text-decoration: none;color: white" routerLink="/projects/create">Thêm câu hỏi</a></button>
+    </h2>
+    <br>
+    <ng-container >
+      <div class="row" style="max-width: 90%; word-wrap: break-word">
+        <div *ngFor="let ques of questionList"  style="background-color: rgba(218,217,217,0.85);
+    width: 160px;height: 90px;border-radius: 10px;padding: 3px 0px 0px 5px;
+    padding-left: 5px;font-size: 23px;margin-top: 10px;margin-left: 20px;overflow: hidden" >
+          <a style="text-decoration: none; color: #1e1e1e" routerLink="/projects/{{ques.id}}">{{ques.content}}</a>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="col-md-8 offset-md-1">
+    <h1 align="center">Danh sách câu hỏi</h1>
+    <button style="float: right" routerLink='/createBook' class="btn btn-success" >Thêm câu hỏi mới</button>
+    <div style="font-weight: bold">
+      <p>Có {{total}} Câu hỏi </p>
+    </div>
+    <hr>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Nội dung</th>
+        <th scope="col">Level</th>
+        <th scope="col">Nhóm</th>
+        <th scope="col">Loại</th>
+        <th></th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let ques of questionList">
+        <td>{{ques.id}}</td>
+        <td><a [routerLink]="['/detailQuestion',ques.id]">Chi tiết</a></td>
+        <td>{{ques.level.level}}</td>
+        <td>{{ques.category.name}}</td>
+        <td>{{ques.type.type}}</td>
+        <td>
+          <button [routerLink]="['/updateQuestion',ques.id]" class="btn btn-success">Sửa</button>
+        </td>
+        <td>
+          <button [routerLink]="['/deleteQuestion',ques.id]" class="btn btn-danger">Xóa</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

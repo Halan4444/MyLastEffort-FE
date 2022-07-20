@@ -1,0 +1,28 @@
+@import '../../../../../assets/scss/variables.scss';
+
+.quiz-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 30px;
+
+  &__info {
+    font-size: 2em;
+    font-weight: 500;
+    color: $medium-dark;
+    margin: 15px;
+
+    &--value {
+      font-size: 1.5em;
+      color: $dark;
+    }
+  }
+
+  &__result {
+    font-size: 2.5em;
+    font-weight: 500;
+    color: $dark;
+    margin-top: 30px;
+  }
+}
