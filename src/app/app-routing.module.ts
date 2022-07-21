@@ -3,6 +3,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {LoginComponent} from './login/login.component';
 import {AuthGuard} from './login/helper/AuthGuard';
 import {HomeComponent} from './home/home.component';
+import {QuizCreateFormComponent} from './shared/components/quizzes/quiz-create-form/quiz-create-form.component';
 
 
 const routes: Routes = [

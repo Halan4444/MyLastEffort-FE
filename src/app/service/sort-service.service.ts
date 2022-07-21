@@ -9,6 +9,7 @@ import {debounceTime, delay, switchMap, tap} from 'rxjs/operators';
 import {Questions} from '../core/models/question';
 import {QuestionsService} from '../service/questions.service';
 import {SortColumn, SortDirection} from '../layout/sortable.directive';
+import {QUESTIONS} from '../layout/questionaries';
 
 interface SearchResult {
   question: Questions[];
@@ -24,11 +25,10 @@ interface State {
 }
 
 
-function sort(questions: Observable<any>, column: SortColumn, direction: string): Observable<any> {
+function sort(questions: Questions[], column: SortColumn, direction: string): Questions[] {
   if (direction === '' || column === '') {
     return questions;
   } else {
-    // @ts-ignore
     return [...questions].sort((a, b) => {
       const res = this.compare(a[column], b[column]);
       return direction === 'asc' ? res : -res;
@@ -44,8 +44,6 @@ function matches(question: Questions, term: string, pipe: PipeTransform) {
 
 @Injectable({providedIn: 'root'})
 export class SortService {
-
-
 
   private _loading$ = new BehaviorSubject<boolean>(true);
   private _search$ = new Subject<void>();
@@ -68,17 +66,16 @@ export class SortService {
       delay(200),
       tap(() => this._loading$.next(false))
     ).subscribe(result => {
-      this._questions$.next(result.questions);
+      this._questions$.next(result.question);
       this._total$.next(result.total);
     });
 
     this._search$.next();
   }
-  private QUESTION = this.questionService.getAllquestions();
 
   private compare = (v1: string | number, v2: string | number) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
-  get questions$() { return this._questions$.asObservable(); }
+  get questions$() {return this._questions$.asObservable(); }
   get total$() { return this._total$.asObservable(); }
   get loading$() { return this._loading$.asObservable(); }
   get page() { return this._state.page; }
@@ -99,18 +96,18 @@ export class SortService {
     this._search$.next();
   }
 
-  private _search(): Observable<{ total: any; questions: any }> {
+  private _search(): Observable<SearchResult> {
     const {sortColumn, sortDirection, pageSize, page, searchTerm} = this._state;
-    let questions: any;
     // 1. sort
-    questions = sort(this.QUESTION, sortColumn, sortDirection);
-
+    let question: any;
+    question = sort(QUESTIONS, sortColumn, sortDirection);
     // 2. filter
-    questions = questions.filter(country => matches(country, searchTerm, this.pipe));
-    const total = questions.length;
+    // tslint:disable-next-line:no-shadowed-variable
+    question = question.filter(question => matches(question, searchTerm, this.pipe));
+    const total = question.length;
 
     // 3. paginate
-    questions = questions.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
-    return of({questions, total});
+    question = question.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
+    return of({question, total});
   }
 }

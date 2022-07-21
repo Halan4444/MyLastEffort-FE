@@ -8,6 +8,7 @@ import {FormsModule} from '@angular/forms';
 import {Ng2SearchPipeModule} from 'ng2-search-filter';
 import {SearchBoardFillterPipe} from '../project/search-board-fillter.pipe';
 import { QuestionsComponent } from './components/quizzes/questions/questions.component';
+import {QuizCreateFormComponent} from './components/quizzes/quiz-create-form/quiz-create-form.component';
 
 
 
@@ -23,7 +24,6 @@ import { QuestionsComponent } from './components/quizzes/questions/questions.com
     NavbarComponent,
     FooterComponent,
     SidebarComponent,
-
   ],
   imports: [
     CommonModule,

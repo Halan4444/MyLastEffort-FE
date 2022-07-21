@@ -1,0 +1,50 @@
+<!-- Edit Modal HTML -->
+<div id="editQuestionModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form>
+        <div class="modal-header">
+          <h4 class="modal-title" id="edited_question">Edit Question</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        </div>
+        <div class="modal-body" id="edit_question_info">
+          <div class="form-group">
+            <label>Question Content</label>
+            <input id="edit_ques_content" type="text" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Category</label>
+            <select name="" id="edit_category">
+              <option value="0">Choose Category</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Level</label>
+            <select name="" id="edit_level">
+              <option id="edit_level_id" value="0">Choose Level</option>
+            </select>
+          </div>
+          <!--                    <div class="form-group">-->
+          <!--                        <label>Type</label>-->
+          <!--                        <select name="" id="edit_type">-->
+          <!--                            <option id="edit_type_id" value="0">Choose Type</option>-->
+          <!--                        </select>-->
+          <!--                    </div>-->
+        </div>
+        <div class="modal-body">
+          <div class="form-group" id="show_edit_answer">
+          </div>
+          <div class="modal-footer" id="btn_editquestion">
+            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+            <!--                        <input onclick="editQuestion(localStorage.getItem('editid'))" id="btn-edit-question" type="submit"-->
+            <!--                               class="btn btn-success" value="Update Question">-->
+          </div>
+          <!--                    <div class="form-group" id="new_question">-->
+          <!--                    </div>-->
+          <!--                    <div class="form-group" id="submit_question">-->
+          <!--                    </div>-->
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

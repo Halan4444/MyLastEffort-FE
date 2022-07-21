@@ -6,6 +6,9 @@ import {ngbdPaginationBasic} from './pagination-basic';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgbdSortableHeader} from './sortable.directive';
 import {FormsModule} from '@angular/forms';
+import { AddQuestionModalComponent } from './add-question-modal/add-question-modal.component';
+import { EditQuestionModalComponent } from './edit-question-modal/edit-question-modal.component';
+import { DeleteQuestionModalComponent } from './delete-question-modal/delete-question-modal.component';
 
 
 @NgModule({
@@ -13,7 +16,9 @@ import {FormsModule} from '@angular/forms';
     LayoutComponent,
     ngbdPaginationBasic,
     NgbdSortableHeader,
-
+    AddQuestionModalComponent,
+    EditQuestionModalComponent,
+    DeleteQuestionModalComponent,
   ],
   imports: [
     CommonModule,

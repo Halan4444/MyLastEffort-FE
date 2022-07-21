@@ -7,12 +7,15 @@ import {QuestionsService} from '../service/questions.service';
 import {NgbdSortableHeader, SortEvent} from './sortable.directive';
 import {SortService} from '../service/sort-service.service';
 import {Observable} from 'rxjs';
+import {DecimalPipe} from '@angular/common';
+import {AddQuestionModalComponent} from './add-question-modal/add-question-modal.component';
 
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.css']
+  styleUrls: ['./layout.component.css'],
+  providers: [SortService, DecimalPipe, AddQuestionModalComponent]
 })
 export class LayoutComponent implements OnInit {
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
@@ -24,23 +27,29 @@ export class LayoutComponent implements OnInit {
   project: Project = {};
 
   questionList: Questions[] = [];
-  total: number;
 
   POSTS: any;
+  total: number;
   p = 1;
   count = 0;
   tableSize = 4;
   tableSizes: any = [3, 6, 9, 12];
   page = 1;
   pageSize = 5;
-   questionList$: Observable<any>;
-   total$: Observable<any>;
+  questionList$: Observable<Questions[]>;
+   total$: Observable<number>;
+
+  collectionSize = this.questionList.length;
 
 
-  constructor(private projectService: ProjectService, private questionService: QuestionsService, private service: SortService) {
+
+
+  constructor(private projectService: ProjectService, private questionService: QuestionsService,
+              private service: SortService, private createQuestion: AddQuestionModalComponent) {
     this.getAllProjects();
     this.getMyProjects();
     this.getAllProjects();
+    this.getAllQuestion();
     this.questionList$ = service.questions$;
     this.total$ = service.total$;
   }
@@ -94,16 +103,14 @@ export class LayoutComponent implements OnInit {
     );
   }
 
-  // onTableDataChange(event: any) {
-  //   this.page = event;
-  //   this.getAllQuestion();
-  // }
-  // onTableSizeChange(event: any): void {
-  //   this.tableSize = event.target.value;
-  //   this.page = 1;
-  //   this.getAllQuestion();
-  // }
-
-
+  onTableDataChange(event: any) {
+    this.page = event;
+    this.getAllQuestion();
+  }
+  onTableSizeChange(event: any): void {
+    this.tableSize = event.target.value;
+    this.page = 1;
+    this.getAllQuestion();
+  }
 
 }

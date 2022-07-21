@@ -1,3 +1,4 @@
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <div class="row" style="margin: 35px 0px 0px 20px">
   <div>
   <h2 style="color: #fdfdfd">Dự án</h2>
@@ -16,7 +17,7 @@
   </div>
   </div>
 <div style="margin-top: 40px">
-    <h2 style="color: #fdfdfd">Dự án của Lan &nbsp;  <button class="btn btn-success"><a style="text-decoration: none;color: white" routerLink="/projects/create">Thêm dự án</a></button>
+    <h2 style="color: #fdfdfd">Dự án của tôi &nbsp;  <button class="btn btn-success"><a style="text-decoration: none;color: white" routerLink="/projects/create">Thêm dự án</a></button>
     </h2>
   <br>
   <ng-container >
@@ -29,30 +30,30 @@
     </div>
   </ng-container>
 </div>
-<form>
-<!--  <div class="mb-3 row">-->
-<!--    <label for="table-complete-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>-->
-<!--    <div class="col-xs-3 col-sm-auto">-->
-<!--      <input id="table-complete-search" type="text" class="form-control" name="searchTerm" [(ngModel)]="service.searchTerm">-->
-<!--    </div>-->
-<!--    <span class="col col-form-label" *ngIf="service.loading$ | async">Loading...</span>-->
-<!--  </div>-->
 
   <div class="col-md-8 offset-md-2 mt-4" >
-    <!--    <h1 align="center"  style="color: white">Danh Sách Câu Hỏi</h1>-->
-    <button style="float: right" routerLink='/createBook' class="btn btn-success" >Thêm câu hỏi mới</button>
+<!--    <h1 align="center"  style="color: white">Danh Sách Câu Hỏi</h1>-->
+    <button style="float: right"  class="btn btn-success" href="#addQuestionModal" class="btn btn-success"
+            data-toggle="modal" >Thêm câu hỏi mới</button>
     <div style="font-weight: bold">
       <h4>Có {{total}} Câu hỏi </h4>
     </div>
     <hr>
+    <div class="mb-3 row">
+      <label for="table-complete-search" class="col-xs-3 col-sm-auto col-form-label">Search:</label>
+      <div class="col-xs-3 col-sm-auto">
+        <input id="table-complete-search" type="text" class="form-control" name="searchTerm" style="color: black!important;" [(ngModel)]="service.searchTerm">
+      </div>
+      <span class="col col-form-label" *ngIf="service.loading$ | async">Loading...</span>
+    </div>
     <table class="table table-striped">
       <thead>
       <tr>
-        <th scope="col" sortable="id" (sort)="onSort($event)">STT</th>
-        <th scope="col" sortable="content" (sort)="onSort($event)">Nội dung</th>
-        <th scope="col" sortable="level" (sort)="onSort($event)">Level</th>
-        <th scope="col" sortable="category" (sort)="onSort($event)">Nhóm</th>
-        <th scope="col" sortable="type" (sort)="onSort($event)">Loại</th>
+        <th scope="col">STT</th>
+        <th scope="col">Nội dung</th>
+        <th scope="col">Level</th>
+        <th scope="col">Nhóm</th>
+        <th scope="col">Loại</th>
         <th scope="col">Sửa</th>
         <th scope="col">Xóa</th>
         <th></th>
@@ -60,9 +61,9 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let ques of questionList$ | slice: (page-1) * pageSize : page * pageSize">
+      <tr *ngFor="let ques of questionList | slice: (page-1) * pageSize : page * pageSize">
         <td>{{ques.id}}</td>
-        <td><a [routerLink]="['/detailQuestion',ques.id]">Chi tiết</a></td>
+        <td>{{ques.content}}</td>
         <td>{{ques.level.level}}</td>
         <td>{{ques.category.name}}</td>
         <td>{{ques.type.type}}</td>
@@ -82,7 +83,6 @@
       [collectionSize]="questionList.length"></ngb-pagination>
 
   </div>
-</form>
-
-
 </div>
+
+<app-add-question-modal></app-add-question-modal>

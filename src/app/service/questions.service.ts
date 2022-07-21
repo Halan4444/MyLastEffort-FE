@@ -19,6 +19,10 @@ export class QuestionsService {
    return this.http.get(this.api);
   }
 
+  getAllCategories(): Observable<any> {
+    return this.http.get('http://localhost:8080/categories');
+  }
+
   getquestionById(id): Observable<any> {
     return this.http.get(`${this.api}/${id}`);
   }
