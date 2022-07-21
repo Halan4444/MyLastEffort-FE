@@ -1,46 +1,47 @@
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
 <!-- Add Modal HTML -->
-<div id="addQuestionModal" class="modal fade">
+<div id="addQuestionModal" class="modal fade" >
   <div class="modal-dialog">
     <div class="modal-content">
-      <form>
-        <div class="modal-header">
-          <h4 class="modal-title" id="added_question">Thêm Câu Hỏi</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        </div>
+      <div class="modal-header">
+        <div class="col-sm-2">&nbsp;</div>
+        <app-main-title title="&nbsp;&nbsp;&nbsp;Thêm Câu Hỏi" type="special"></app-main-title>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <form [formGroup]="createForm" (ngSubmit)="createQuestion();createAnswerForm()">
         <div class="modal-body" id="question_info">
           <div class="form-group">
-            <label>Question Content</label>
-            <input id="ques_content" type="text" class="form-control" style="color: black !important;" required>
+            <label>Nội Dung Câu Hỏi</label>
+            <input formControlName="content" [(ngModel)]="content" id="ques_content" type="text" class="form-control" style="color: black !important;" required>
           </div>
-          <div class="form-group">
-            <label>Category &nbsp;</label>
-            <select [(ngModel)]="category">
+          <div formGroupName="category" class="form-group">
+            <label>Mục&nbsp; &nbsp;</label>
+            <select formControlName="id"[(ngModel)]="category" (ngModel)="category.id">
               <option id="category_id" value="0">Chọn Mục</option>
-              <option *ngFor="let c of categories" [ngValue]="c">{{c.name}}</option>
+              <option *ngFor="let c of categories" [ngValue]="c.id">{{c.name}}</option>
             </select>
           </div>
-          <div class="form-group">
+          <div formGroupName="level" class="form-group">
             <label>Level &nbsp;</label>
-            <select [(ngModel)]="level">
+            <select formControlName="id" [(ngModel)]="level">
               <option id="level_id" value="0">Chọn Level</option>
-              <option *ngFor="let l of levels" [ngValue]="l">{{l.level}}</option>
+              <option *ngFor="let l of levels" [ngValue]="l.id">{{l.level}}</option>
             </select>
           </div>
-          <div class="form-group">
-            <label>Type &nbsp;</label>
-            <select [(ngModel)]="type">
+          <div formGroupName="type" class="form-group">
+            <label>Loại&nbsp; &nbsp;</label>
+            <select formControlName="id" [(ngModel)]="type">
               <option id="type_id" value="0">Chọn Type</option>
-              <option *ngFor="let t of types" [ngValue]="t">{{t.name}}</option>
+              <option  *ngFor="let t of types" [ngValue]="t.id">{{t.type}}</option>
             </select>
           </div>
           <div class="modal-footer" id="btn_addquestion">
-            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-            <input onclick="createAnswerForm(); createQuestion()" id="btn-create" type="submit"
+            <input type="button" class="btn btn-default" data-dismiss="modal" value="Hủy">
+            <input id="btn-create" type="submit"
                    class="btn btn-success" value="Thêm Câu Trả Lời">
           </div>
         </div>
-        <div class="modal-body">
+        <div id="newModal" class="modal-body">
           <div class="form-group" id="show_answer">
           </div>
           <div class="form-group" id="new_question">
@@ -52,155 +53,3 @@
     </div>
   </div>
 </div>
-<script>
-
-  // createAnswer
-  function createAnswerForm() {
-    let str = '';
-    let str1 = '';
-    str +=
-      '<input id = "ops" name = "" type = "text" class = "form-control" required >' +
-      '<input type = "submit" name = "" onclick="createAnswer();listAnswer(); createAnswerForm()" value="Add Answer">'
-
-    document.getElementById('new_question').innerHTML = str;
-    str1 += '<input type = "submit" onclick="submitQuestion()" value="Submit Question">'
-    document.getElementById('submit_question').innerHTML = str1;
-  }
-
-  // createAnswerForm
-  function createAnswer() {
-    let question_id;
-    $.ajax({
-      async: false,
-      //do AJAX là bất động bộ nên phải thêm async: false để chuyển về đồng bộ
-      url: 'http://localhost:8080/questions/new-question',
-      method: 'GET',
-      dataType: 'json',
-      success: function (data) {
-        console.log("question ra dang gi "+data)
-        question_id = data.id;
-        // console.log(question_id)
-        let content = document.getElementById('ops').value;
-        let status = false;
-        let answer = {
-          content: content,
-          status: status,
-          question: {
-            id: question_id
-          }
-        }
-        let answerObj = JSON.stringify(answer);
-        // console.log(answerObj)
-        $.ajax({
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          url: 'http://localhost:8080/answers',
-          type: 'POST',
-          // contentType:'application/json; charset=utf8',
-          data: answerObj,
-          success: function (data) {
-            createAnswerForm();
-            listQuestion();
-            pageQuestion();
-            // resetFormCreate();
-          }
-        })
-      }
-    })
-  }
-
-  // createform
-  function createQuestionForm() {
-    let str = '';
-    $.ajax({
-      async: false,
-      //do AJAX là bất động bộ nên phải thêm async: false để chuyển về đồng bộ
-      url: 'http://localhost:8080/categories',
-      method: 'GET',
-      dataType: 'json',
-      success: function (data) {
-        // console.log("category===="+data)
-        for (let i = 0; i < data.length; i++) {
-          str += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
-        }
-        document.getElementById('category').innerHTML = str;
-        // console.log('size trong list == ',size)
-      }
-    })
-    let str1 = '';
-    $.ajax({
-      async: false,
-      //do AJAX là bất động bộ nên phải thêm async: false để chuyển về đồng bộ
-      url: 'http://localhost:8080/levels',
-      method: 'GET',
-      dataType: 'json',
-      success: function (data) {
-        for (let i = 0; i < data.length; i++) {
-          str1 += '<option value="' + data[i].id + '">' + data[i].level + '</option>';
-        }
-        document.getElementById('level').innerHTML = str1;
-        // console.log('size trong list == ',size)
-      }
-    })
-    let str2 = '';
-    $.ajax({
-      async: false,
-      //do AJAX là bất động bộ nên phải thêm async: false để chuyển về đồng bộ
-      url: 'http://localhost:8080/types',
-      method: 'GET',
-      dataType: 'json',
-      success: function (data) {
-        for (let i = 0; i < data.length; i++) {
-          str2 += '<option value="' + data[i].id + '">' + data[i].type + '</option>';
-        }
-        document.getElementById('type').innerHTML = str2;
-      }
-    })
-  }
-
-  function createQuestion() {
-    let content = document.getElementById('ques_content').value;
-    let category_id = document.getElementById('category').value;
-    let level_id = document.getElementById('level').value;
-    let type_id = document.getElementById('type').value;
-    let question = {
-      content: content,
-      category: {
-        id: category_id
-      },
-      level: {
-        id: level_id
-      },
-      type: {
-        id: type_id
-      }
-    }
-    let questionObj = JSON.stringify(question);
-    // console.log("question==== " + questionObj)
-    $.ajax({
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      url: 'http://localhost:8080/questions',
-      type: 'POST',
-      // contentType:'application/json; charset=utf8',
-      data: questionObj,
-      success: function (question) {
-        document.getElementById('added_question').innerHTML = question.content;
-        $('#btn_addquestion').hide();
-        $('#question_info').hide();
-        listQuestion();
-        pageQuestion();
-        // resetFormCreate();
-      }
-    })
-  }
-
-  //RESET FORM CREATE
-  function resetFormCreate() {
-    $('#ques_content').val('');
-  }
-</script>

@@ -23,19 +23,35 @@ export class QuestionsService {
     return this.http.get('http://localhost:8080/categories');
   }
 
+  getAllLevel(): Observable<any> {
+    return this.http.get('http://localhost:8080/levels');
+  }
+
+  getAllTypes(): Observable<any> {
+    return this.http.get('http://localhost:8080/types');
+  }
+
   getquestionById(id): Observable<any> {
     return this.http.get(`${this.api}/${id}`);
   }
 
-  create(question: Questions): Observable<any> {
+  createQuestion(question: Questions): Observable<any> {
     return this.http.post<Questions>(this.api, question);
   }
 
-  update(question: Questions): Observable<any> {
+  newQuestion(): Observable<any> {
+    return this.http.get<Questions>('http://localhost:8080/questions/new-question');
+  }
+  // tslint:disable-next-line:variable-name
+  getAnswer(question_id:any): Observable<any> {
+    return this.http.get<Questions>(`${this.api}/${question_id}/answers`, question_id);
+  }
+
+  updateQuestion(question: Questions): Observable<any> {
     return this.http.put<Questions>(`${this.api}/${question.id}`, question);
   }
 
-  delete(id: number): Observable<any> {
+  deleteQuestion(id: number): Observable<any> {
     return this.http.delete(`${this.api}/${id}`);
   }
 }
