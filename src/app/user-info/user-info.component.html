@@ -1,9 +1,9 @@
 <div class="container">
-<div class="row justify-content-center" style="margin: 35px 0px 0px 60px">
+<div class="row justify-content-center" style="margin: 35px 0px 0px 60px;padding-bottom: 100px">
   <div class="col-md-6" style="padding: 20px 0px 0px 20px;border-radius: 10px;
-  width: 400px; height: 450px;
+  width: 400px; height: 500px;
   border: 1px solid rgba(192,187,187,0.85);background-color: rgb(218,213,213) !important;">
-    <h1 style="color: #37404f">Thông tin tài khoản</h1>
+    <h1 style="color: #37404f">THÔNG TIN USER</h1>
     <img style="margin: 10px 0px 10px 75px;width: 210px; height: 210px; border-radius: 100%" [src]="user?.avatar" alt="Day la anh dai dien">
     <!--    <label for="file" style="color: #eee4e4" title="Đổi ảnh đại diện"><i style="padding-top: 80%" class="ti-pencil"></i>-->
     <!--    Đổi ảnh đại diện-->
@@ -26,6 +26,21 @@
           </td>
 
         </div>
+      <div style="margin: 0px 0px 5px 0px"  >
+        <!--          <td>-->
+        <!--            <div>-->
+        <!--              Tên đăng nhập-->
+        <!--            </div>-->
+        <!--          </td>-->
+        <td>
+
+          <div>
+            <i class="ti-user"></i>
+            {{user?.name}}
+          </div>
+        </td>
+
+      </div>
         <div >
 <!--          <td>-->
 <!--            <div>-->
@@ -40,7 +55,9 @@
           </td>
 <!--      </table>-->
     </div>
+
   </div>
+
 
 </div>
 <input type="file"

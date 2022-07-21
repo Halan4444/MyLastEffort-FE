@@ -49,6 +49,7 @@ export class RegisterComponent implements OnInit {
 
   register(formRegister: NgForm) {
     this.user = formRegister.value;
+
     this._userService.registerAccount(this.user).subscribe(
       (data) => {
         let title = 'Đăng ký thành công';
@@ -63,7 +64,6 @@ export class RegisterComponent implements OnInit {
       }
     );
   }
-
   getUserUnique() {
     this._userService.getAllUserUniques().subscribe(
       (data) => {
