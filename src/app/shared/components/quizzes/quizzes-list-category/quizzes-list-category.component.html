@@ -1,0 +1,21 @@
+<app-main-title title={{componentTitle}} type="special"></app-main-title>
+<p *ngIf="collectionName === 'exampleQuizzes'; else usersQuizzesSubtitle" class="paragraph paragraph--large">Check yourself and <span class="paragraph--accent">take the sample quiz!</span></p>
+<ng-template #usersQuizzesSubtitle>
+  <p class="paragraph paragraph--large">List of quizzes added by <span class="paragraph--accent">users not logged in</span></p>
+</ng-template>
+<div *ngIf="quizzesList && quizzesList.length; else elseBlock">
+  <div class="nav">
+    <ul class="nav__list">
+        <li *ngFor="let quiz of quizzesList" class="nav__item">
+          <a [routerLink]="['/quizzes/quiz/', quiz.payload.doc.id]"
+            class="nav__link"
+            [queryParams]="{collectionName: collectionName}">
+            {{ quiz.payload.doc.data().title }}
+          </a>
+        </li>
+    </ul>
+  </div>
+</div>
+<ng-template #elseBlock>
+  <p class="paragraph paragraph--large">No quiz has been added yet. Add your first quiz in the "Create a quiz" tab :)</p>
+</ng-template>

@@ -1,0 +1,37 @@
+<div class="col-md-6 offset-md-3">
+  <h1 align="center">Danh sách câu hỏi</h1>
+  <button style="float: right" routerLink='/createBook' class="btn btn-success" >Thêm câu hỏi mới</button>
+  <div style="font-weight: bold">
+    <p>Có {{total}} Câu hỏi </p>
+  </div>
+
+  <hr>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nội dung</th>
+      <th scope="col">Level</th>
+      <th scope="col">Nhóm</th>
+      <th scope="col">Loại</th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let ques of listQuestion">
+      <td>{{ques.id}}</td>
+      <td><a [routerLink]="['/detailQuestion',ques.id]">Chi tiết</a></td>
+      <td>{{ques.level}}</td>
+      <td>{{ques.category}}</td>
+      <td>{{ques.type}}</td>
+      <td>
+        <button [routerLink]="['/updateQuestion',ques.id]" class="btn btn-success">Sửa</button>
+      </td>
+      <td>
+        <button [routerLink]="['/deleteQuestion',ques.id]" class="btn btn-danger">Xóa</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

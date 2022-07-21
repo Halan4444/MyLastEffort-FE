@@ -1,0 +1,10 @@
+<form (change)="emitAnswer()" class="question-form">
+  <p class="question-form__question">{{ question['value']['question'] }}</p>
+  <div class="question-form__inputs-container">
+      <label class="question-form__input-box" *ngFor="let answer of question['value']['answers']; let i = index">
+        <input class="question-form__input" [value]="answer" [(ngModel)]="checkedAnswer" type="radio" id="checkedAnswer" name="checkedAnswer">
+        <span class="question-form__checkmark"></span>
+        <p class="question-form__answer">{{ answer }}</p>
+      </label>
+  </div>
+</form>

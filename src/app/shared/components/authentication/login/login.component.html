@@ -1,0 +1,20 @@
+<app-main-title title="Login" type="special"></app-main-title>
+<form class="login-form" (ngSubmit)="login(formData)" #formData="ngForm">
+  <div class="login-form__input-boxes">
+    <div class="login-form__input-box login-form__input-box--align-right">
+      <label class="login-form__label" for="username">Username</label>
+      <input class="login-form__input" ngModel type="email" name="email" id="username" />
+    </div>
+    <div class="login-form__input-box login-form__input-box--align-right">
+      <label class="login-form__label" for="password">Password</label>
+      <input class="login-form__input" ngModel type="password" name="password" id="password" />
+    </div>
+    <div class="login-form__input-box">
+      <p class="login-form__register-text">
+        Don't have an account?
+        <a [routerLink]="['/account/register']" class="login-form__register-link">Register now</a>
+      </p>
+      <button class="login-form__button" type="submit">Login</button>
+    </div>
+  </div>
+</form>

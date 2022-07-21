@@ -1,0 +1,114 @@
+@import 'variables.scss';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: 'Lato', sans-serif;
+  font-size: 62.5%;
+  font-weight: 500;
+}
+
+body {
+  min-height: 100vh;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+
+  &--vertical-center {
+    align-items: center;
+  }
+}
+
+.component-content {
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  width: 100%;
+  margin: 20px 0;
+  padding: 0 20px;
+}
+
+.component-top {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background: #343a40;
+  border-top: 1px solid $medium-dark;
+  padding: 20px 40px;
+}
+
+.aside {
+  display: none;
+}
+
+.main {
+  width: 100%;
+}
+
+@media screen and (min-width: 1024px) {
+  .container {
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  .component-content {
+    padding: 20px 50px 40px;
+    margin: 0;
+  }
+
+  .component-top {
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0;
+    border-top: none;
+    border-left: 1px solid $medium-dark;
+
+    &--center {
+      justify-content: center;
+    }
+  }
+
+  .content-with-gradient-bg {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba($dark,1) 0%, rgba($dark,1) 20%, rgba($bright,1) 20%);
+  }
+
+  .aside {
+    display: flex;
+    justify-content: flex-start;
+    width: 20%;
+    background: $dark;
+    padding-left: 40px;
+  }
+
+  .main {
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  .container {
+    flex-direction: row;
+    width: 100%;
+    max-width: 1200px;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .container {
+    max-width: 1550px;
+  }
+}
