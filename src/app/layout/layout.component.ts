@@ -11,6 +11,7 @@ import {DecimalPipe} from '@angular/common';
 import {AddQuestionModalComponent} from './add-question-modal/add-question-modal.component';
 
 
+
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
@@ -45,7 +46,9 @@ export class LayoutComponent implements OnInit {
 
 
   constructor(private projectService: ProjectService, private questionService: QuestionsService,
-              private service: SortService, private createQuestion: AddQuestionModalComponent) {
+              private service: SortService, private createQuestion: AddQuestionModalComponent,
+              ) {
+
     this.getAllProjects();
     this.getMyProjects();
     this.getAllProjects();
@@ -112,5 +115,6 @@ export class LayoutComponent implements OnInit {
     this.page = 1;
     this.getAllQuestion();
   }
+
 
 }

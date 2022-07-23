@@ -11,5 +11,12 @@ export class DeleteQuestionModalComponent implements OnInit {
 
   ngOnInit() {
   }
-
+showDeleteModal(quesId) {
+  localStorage.setItem('deleteid', quesId);
+  let str = '';
+  // tslint:disable-next-line:max-line-length
+  str += '<input type="submit" className="btn btn-danger" onclick="deleteQuestion(' +localStorage.getItem('deleteid') + ')" value="Delete">';
+  // console.log(localStorage.getItem("deleteid"))
+  document.getElementById('btn-delete-ques').innerHTML = str;
+}
 }
