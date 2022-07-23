@@ -1,4 +1,8 @@
 export interface Answer {
-  answer: string;
-  correctAnswer: string;
+  content: string;
+  status: boolean;
+  question: {
+    id: number
+  };
 }
+

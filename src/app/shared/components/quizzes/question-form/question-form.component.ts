@@ -16,7 +16,7 @@ export class QuestionFormComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.answers.length) {
-      this.checkedAnswer = this.answers[this.activeQuestion].answer;
+      this.checkedAnswer = this.answers[this.activeQuestion].content;
     }
   }
 

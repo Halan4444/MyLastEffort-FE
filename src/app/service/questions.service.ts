@@ -3,6 +3,7 @@ import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs';
 import {Questions} from '../core/models/question';
 import {HttpClient} from '@angular/common/http';
+import {Answer} from '../core/models/answer';
 
 @Injectable({
   providedIn: 'root'
@@ -43,8 +44,14 @@ export class QuestionsService {
     return this.http.get<Questions>('http://localhost:8080/questions/new-question');
   }
   // tslint:disable-next-line:variable-name
-  getAnswer(question_id:any): Observable<any> {
-    return this.http.get<Questions>(`${this.api}/${question_id}/answers`, question_id);
+  getAnswer(question_id: any): Observable<any> {
+    return this.http.get<Answer>(`${this.api}/${question_id}/answers`, question_id);
+  }
+  answerResult(index: any, answer: Answer): Observable<any> {
+    return this.http.put<Answer>('http://localhost:8080/answers/' + `${index}`, answer);
+  }
+  addAnswer(answer: Answer): Observable<any> {
+    return this.http.post<Answer>('http://localhost:8080/answers', answer);
   }
 
   updateQuestion(question: Questions): Observable<any> {

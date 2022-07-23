@@ -37,7 +37,7 @@ function sort(questions: Questions[], column: SortColumn, direction: string): Qu
 }
 
 function matches(question: Questions, term: string, pipe: PipeTransform) {
-  return question.type.toLowerCase().includes(term.toLowerCase())
+  return question.type.id.toString().toLowerCase().includes(term.toLowerCase())
     || pipe.transform(question.level).includes(term)
     || pipe.transform(question.category).includes(term);
 }
