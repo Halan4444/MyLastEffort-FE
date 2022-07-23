@@ -71,7 +71,7 @@
           <button [routerLink]="['/updateQuestion',ques.id]" class="btn btn-success">Sửa</button>
         </td>
         <td>
-          <button href="#deleteQuestionModal"data-toggle="modal" class="btn btn-danger">Xóa</button>
+          <button href="#deleteQuestionModal"data-toggle="modal" (click)="getDeleteId([ques.id])" class="btn btn-danger">Xóa</button>
         </td>
       </tr>
       </tbody>

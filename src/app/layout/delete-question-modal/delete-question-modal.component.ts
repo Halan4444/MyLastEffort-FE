@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {QuestionsService} from '../../service/questions.service';
+import {showPopupError, showToastSuccess} from '../../note';
 
 @Component({
   selector: 'app-delete-question-modal',
@@ -6,17 +8,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./delete-question-modal.component.css']
 })
 export class DeleteQuestionModalComponent implements OnInit {
+  deleteId: any;
 
-  constructor() { }
+  constructor(private service: QuestionsService) { }
 
   ngOnInit() {
   }
-showDeleteModal(quesId) {
-  localStorage.setItem('deleteid', quesId);
-  let str = '';
-  // tslint:disable-next-line:max-line-length
-  str += '<input type="submit" className="btn btn-danger" onclick="deleteQuestion(' +localStorage.getItem('deleteid') + ')" value="Delete">';
-  // console.log(localStorage.getItem("deleteid"))
-  document.getElementById('btn-delete-ques').innerHTML = str;
+deleteQuestionModule() {
+  const id = localStorage.getItem('deleteid');
+  this.deleteId = id;
+  this.service.deleteQuestion(id).subscribe(() => {
+    const title = 'Xóa Quizz Thành Công';
+    showToastSuccess(title);
+  }, error => {
+    const title = 'Thông báo';
+    const content = 'Xóa Quizz Thất Bại';
+    showPopupError(title, content);
+  });
 }
 }

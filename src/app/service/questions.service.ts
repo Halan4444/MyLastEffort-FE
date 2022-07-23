@@ -58,7 +58,7 @@ export class QuestionsService {
     return this.http.put<Questions>(`${this.api}/${question.id}`, question);
   }
 
-  deleteQuestion(id: number): Observable<any> {
+  deleteQuestion(id: any): Observable<any> {
     return this.http.delete(`${this.api}/${id}`);
   }
 }
