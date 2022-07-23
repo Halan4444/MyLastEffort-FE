@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {QuestionsService} from '../../service/questions.service';
-import {FormBuilder} from '@angular/forms';
+import {FormBuilder, Validators} from '@angular/forms';
 import {Questions} from '../../core/models/question';
 import {showPopupError, showToastSuccess} from '../../note';
 import {data} from 'jquery';
@@ -70,6 +70,36 @@ export class AddQuestionModalComponent implements OnInit {
     this.getAllTypes();
   }
 
+  ondLoad() {
+    $('#btn-create').attr('disabled', 'disabled');
+    const submitBtn = document.getElementById('btn-create') as HTMLInputElement;
+    const content = document.getElementById('ques_content') as HTMLInputElement;
+    const cate = document.getElementById('category_id') as HTMLInputElement;
+    const level = document.getElementById('level_id') as HTMLInputElement;
+    const type = document.getElementById('type_id') as HTMLInputElement;
+
+// run this function whenever the values of any of the above 4 inputs change.
+// this is to check if the input for all 4 is valid.  if so, enable submitBtn.
+// otherwise, disable it.
+    const checkEnableButton = () => {
+      if (
+        (content.value !== '') &&
+        (cate.value !== '1: 1') &&
+        (level.value !== '1: 1') &&
+        (type.value !== '1: 1' ) ) {
+        alert('Có vào không ?');
+        alert('check===' + cate.value);
+        alert('check===' + level.value);
+        alert('check===' + type.value);
+        $('#btn-create').removeAttr('disabled');
+      }
+    };
+    content.addEventListener('change', checkEnableButton);
+    cate.addEventListener('change', checkEnableButton);
+    type.addEventListener('change', checkEnableButton);
+    level.addEventListener('change', checkEnableButton);
+  }
+
   getAllCategoreies() {
     // tslint:disable-next-line:no-shadowed-variable
     this.questionService.getAllCategories().subscribe(data => {
@@ -99,9 +129,11 @@ export class AddQuestionModalComponent implements OnInit {
   }
 
   createQuestion() {
+
     const ques: Questions = this.createForm.value;
     console.log(ques);
     this.questionService.createQuestion(ques).subscribe(() => {
+      document.getElementById('showModal').style.display = 'block';
       const title = 'Tạo Quizz Thành Công';
       showToastSuccess(title);
     }, error => {
@@ -202,6 +234,7 @@ export class AddQuestionModalComponent implements OnInit {
               this.resetFormCreate();
               const title = 'Tạo Đáp Án Thành Công';
               showToastSuccess(title);
+              window.location.reload();
             });
           }
         }

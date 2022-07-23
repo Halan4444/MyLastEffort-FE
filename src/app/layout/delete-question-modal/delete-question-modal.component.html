@@ -4,19 +4,19 @@
     <div class="modal-content">
       <form>
         <div class="modal-header" id="delete_notice">
-          <h4 class="modal-title">Delete Question</h4>
+          <h4 class="modal-title">Xóa Quizz</h4>
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         </div>
         <div id="dwe">
           <div class="modal-body">
             <input type="text" required hidden>
-            <p>Are you sure you want to delete these Records?</p>
-            <p class="text-warning"><small>This action cannot be undone.</small></p>
+            <p>Bạn có chắc muốn xóa Quizz này không ?</p>
+            <p class="text-warning"><small>Xóa rồi không lấy lại được đâu !</small></p>
           </div>
         </div>
         <div class="modal-footer" id="btn-delete-ques">
-          <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-          <input type="submit" className="btn btn-danger" (click)="deleteQuestionModule()" value="Delete">
+          <input type="button" class="btn btn-danger" data-dismiss="modal" value="Đóng">
+          <input type="submit" class="btn btn-danger" (click)="deleteQuestionModule()" value="Xóa">
         </div>
       </form>
     </div>

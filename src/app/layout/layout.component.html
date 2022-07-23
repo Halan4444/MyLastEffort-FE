@@ -33,7 +33,7 @@
 
   <div class="col-md-8 offset-md-2 mt-4" >
 <!--    <h1 align="center"  style="color: white">Danh Sách Câu Hỏi</h1>-->
-    <button style="float: right"  class="btn btn-success" href="#addQuestionModal" class="btn btn-success"
+    <button (click)="onLoad()" style="float: right"  class="btn btn-success" href="#addQuestionModal" class="btn btn-success"
             data-toggle="modal" >Thêm câu hỏi mới</button>
     <div style="font-weight: bold">
       <h4>Có {{total}} Câu hỏi </h4>
@@ -61,8 +61,8 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let ques of questionList | slice: (page-1) * pageSize : page * pageSize">
-        <td>{{ques.id}}</td>
+      <tr *ngFor="let i = index; let ques of questionList | slice: (page-1) * pageSize : page * pageSize">
+        <td>{{i+1}}</td>
         <td>{{ques.content}}</td>
         <td>{{ques.level.level}}</td>
         <td>{{ques.category.name}}</td>

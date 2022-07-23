@@ -16,42 +16,42 @@
           </div>
           <div formGroupName="category" class="form-group">
             <label>Mục&nbsp; &nbsp;</label>
-            <select formControlName="id"[(ngModel)]="category">
-              <option ng-selected="true" id="category_id" >Chọn Mục</option>
-              <option  *ngFor="let c of categories" [ngValue]="c.id">{{c.name}}</option>
+            <select (change)="ondLoad()" formControlName="id"[(ngModel)]="category">
+              <option ng-selected="true"  >Chọn Mục</option>
+              <option id="category_id" *ngFor="let c of categories" [ngValue]="c.id+'chiếc'">{{c.name}}</option>
             </select>
           </div>
           <div formGroupName="level" class="form-group">
             <label>Level &nbsp;</label>
-            <select formControlName="id" [(ngModel)]="level">
-              <option id="level_id" value="0">Chọn Level</option>
-              <option *ngFor="let l of levels" [ngValue]="l.id">{{l.level}}</option>
+            <select (change)="ondLoad()" formControlName="id" [(ngModel)]="level">
+              <option value="0">Chọn Level</option>
+              <option id="level_id" *ngFor="let l of levels" [ngValue]="l.id">{{l.level}}</option>
             </select>
           </div>
-          <div formGroupName="type" class="form-group">
+          <div (change)="ondLoad()" formGroupName="type" class="form-group">
             <label>Loại&nbsp; &nbsp;</label>
             <select formControlName="id" [(ngModel)]="type">
-              <option id="type_id" value="0">Chọn Type</option>
-              <option  *ngFor="let t of types" [ngValue]="t.id">{{t.type}}</option>
+              <option  value="0">Chọn Type</option>
+              <option id="type_id"  *ngFor="let t of types" [ngValue]="t.id">{{t.type}}</option>
             </select>
           </div>
           <div class="modal-footer" id="btn_addquestion">
-            <input type="button" class="btn btn-default" data-dismiss="modal" value="Hủy">
+            <input type="button" class="btn btn-default" data-dismiss="modal" value="Đóng">
             <input id="btn-create" type="submit"
                    class="btn btn-success" value="Thêm Quizz">
           </div>
         </div>
       </form>
       <form [formGroup]="answerForm" (ngSubmit)="submitQuestion()">
-        <div class="modal-body">
+        <div id="showModal" class="modal-body" style="display: none">
           <div class="form-group" id="show_answer" style="margin-left: 25px">
           </div>
           <div class="form-group" id="new_question">
-            <input id="ops" type = "text" class = "form-control" required style="color: black !important;">
+            <input id="ops"  type = "text" class = "form-control" required style="color: black !important;">
           </div>
           <div class="modal-footer" id="submit_question">
             <input class="btn btn-success" type = "submit" name = "" (click)="createAnswer();listAnswer();" value="Thêm Đáp Án">
-            <input type="submit" class="btn btn-success" value="Gửi">
+            <input type="submit" class="btn btn-facebook" value="Gửi">
           </div>
         </div>
       </form>

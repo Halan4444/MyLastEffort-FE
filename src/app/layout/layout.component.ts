@@ -118,4 +118,8 @@ export class LayoutComponent implements OnInit {
   getDeleteId(deleteid) {
     localStorage.setItem('deleteid', deleteid);
   }
+
+  onLoad() {
+    this.createQuestion.ondLoad();
+  }
 }
