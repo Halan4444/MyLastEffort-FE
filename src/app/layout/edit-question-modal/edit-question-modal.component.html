@@ -1,48 +1,37 @@
 <!-- Edit Modal HTML -->
-<div id="editQuestionModal" class="modal fade">
+<div id="editQuestionModal" class="modal fade" >
   <div class="modal-dialog">
     <div class="modal-content">
-      <form>
+      <form [formGroup]="createForm" (ngSubmit)="editQuestion()">
         <div class="modal-header">
-          <h4 class="modal-title" id="edited_question">Edit Question</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <div class="col-sm-2">&nbsp;</div>
+          <app-main-title title="&nbsp;&nbsp;&nbsp;Sửa Câu Hỏi" type="special"></app-main-title>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="removeKey()">&times;</button>
         </div>
         <div class="modal-body" id="edit_question_info">
           <div class="form-group">
-            <label>Question Content</label>
-            <input id="edit_ques_content" type="text" class="form-control" required>
+            <label>Nội Dung Câu Hỏi &nbsp;&nbsp;</label>
+            <input formControlName="content" [(ngModel)]="content" id="edit_ques_content" type="text" class="form-control" required style="color: black !important;" >
           </div>
-          <div class="form-group">
-            <label>Category</label>
-            <select name="" id="edit_category">
-              <option value="0">Choose Category</option>
+          <div formGroupName="category" class="form-group">
+            <label>Mục&nbsp;&nbsp;&nbsp;&nbsp; </label>
+            <select formControlName="id" name="" id="edit_category" style="width: 120px">
+              <option  id="category_id" *ngFor="let c of categories" [ngValue]="c.id">{{c.name}}</option>
             </select>
           </div>
-          <div class="form-group">
-            <label>Level</label>
-            <select name="" id="edit_level">
-              <option id="edit_level_id" value="0">Choose Level</option>
+          <div formGroupName="level" class="form-group">
+            <label>Level &nbsp;&nbsp;</label>
+            <select formControlName="id" name="" id="edit_level" style="width: 120px">
+              <option id="level_id" *ngFor="let l of levels" [ngValue]="l.id">{{l.level}}</option>
             </select>
           </div>
-          <!--                    <div class="form-group">-->
-          <!--                        <label>Type</label>-->
-          <!--                        <select name="" id="edit_type">-->
-          <!--                            <option id="edit_type_id" value="0">Choose Type</option>-->
-          <!--                        </select>-->
-          <!--                    </div>-->
         </div>
         <div class="modal-body">
           <div class="form-group" id="show_edit_answer">
           </div>
           <div class="modal-footer" id="btn_editquestion">
-            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-            <!--                        <input onclick="editQuestion(localStorage.getItem('editid'))" id="btn-edit-question" type="submit"-->
-            <!--                               class="btn btn-success" value="Update Question">-->
+            <input (click)="editQuestion()" id="editQues" type="submit" class="btn btn-success" data-dismiss="modal" value="Sửa">
           </div>
-          <!--                    <div class="form-group" id="new_question">-->
-          <!--                    </div>-->
-          <!--                    <div class="form-group" id="submit_question">-->
-          <!--                    </div>-->
         </div>
       </form>
     </div>

@@ -40,6 +40,16 @@ export class QuestionsService {
     return this.http.post<Questions>(this.api, question);
   }
 
+  updateQuestionForm(editid: any): Observable<any> {
+    return this.http.get<Questions>(`${this.api}/${editid}`);
+  }
+  updateCategoriesForm(): Observable<any> {
+    return this.http.get<Questions>('http://localhost:8080/categories');
+  }
+  updateLevelForm(): Observable<any> {
+    return this.http.get<Questions>('http://localhost:8080/levels');
+  }
+
   newQuestion(): Observable<any> {
     return this.http.get<Questions>('http://localhost:8080/questions/new-question');
   }
@@ -54,8 +64,8 @@ export class QuestionsService {
     return this.http.post<Answer>('http://localhost:8080/answers', answer);
   }
 
-  updateQuestion(question: Questions): Observable<any> {
-    return this.http.put<Questions>(`${this.api}/${question.id}`, question);
+  updateQuestion(editid: any, question: Questions): Observable<any> {
+    return this.http.put<Questions>(`${this.api}/${editid}`, question);
   }
 
   deleteQuestion(id: any): Observable<any> {

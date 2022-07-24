@@ -68,7 +68,7 @@
         <td>{{ques.category.name}}</td>
         <td>{{ques.type.type}}</td>
         <td>
-          <button [routerLink]="['/updateQuestion',ques.id]" class="btn btn-success">Sửa</button>
+          <button href="#editQuestionModal" data-toggle="modal" (click)="onLoad2();getUpdateId([ques.id])" class="btn btn-success">Sửa</button>
         </td>
         <td>
           <button href="#deleteQuestionModal"data-toggle="modal" (click)="getDeleteId([ques.id])" class="btn btn-danger">Xóa</button>
@@ -87,3 +87,4 @@
 
 <app-add-question-modal></app-add-question-modal>
 <app-delete-question-modal></app-delete-question-modal>
+<app-edit-question-modal></app-edit-question-modal>

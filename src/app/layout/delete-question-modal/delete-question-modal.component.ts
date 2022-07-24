@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {QuestionsService} from '../../service/questions.service';
 import {showPopupError, showToastSuccess} from '../../note';
 import {Router} from '@angular/router';
+import {delay} from 'rxjs/operators';
 
 @Component({
   selector: 'app-delete-question-modal',
@@ -18,9 +19,11 @@ export class DeleteQuestionModalComponent implements OnInit {
 deleteQuestionModule() {
   const id = localStorage.getItem('deleteid');
   this.deleteId = id;
-  this.service.deleteQuestion(id).subscribe(() => {
+  this.service.deleteQuestion(id).subscribe( () => {
     const title = 'Xóa Quizz Thành Công';
     showToastSuccess(title);
+    setTimeout( () => {
+    }, 2000);
     window.location.reload();
   }, error => {
     const title = 'Thông báo';

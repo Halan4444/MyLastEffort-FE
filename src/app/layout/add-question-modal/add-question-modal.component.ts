@@ -1,33 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Injector, Input, OnInit} from '@angular/core';
 import {QuestionsService} from '../../service/questions.service';
-import {FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, Validators} from '@angular/forms';
 import {Questions} from '../../core/models/question';
 import {showPopupError, showToastSuccess} from '../../note';
 import {data} from 'jquery';
+import {ResetService} from '../reset.service';
+import {LayoutComponent} from '../layout.component';
+
+
 
 @Component({
   selector: 'app-add-question-modal',
   templateUrl: './add-question-modal.component.html',
-  styleUrls: ['./add-question-modal.component.css']
+  styleUrls: ['./add-question-modal.component.css'],
 })
 export class AddQuestionModalComponent implements OnInit {
 
 
 
 
-  constructor(private fb: FormBuilder, private questionService: QuestionsService) {
+  constructor(private fb: FormBuilder, private questionService: QuestionsService, private injector: Injector) {
   }
 
   categories: any[];
-  category: any;
+  category: any ;
   level: any;
   levels: any[];
   types: any[];
-  type: any;
+  type: any ;
   content: string;
   status: any;
   ansContent: any;
   questionId: any;
+
+
 
   // levelForm = this.fb.group( {
   //   id: this.level
@@ -43,13 +49,13 @@ export class AddQuestionModalComponent implements OnInit {
   createForm = this.fb.group({
     content: this.content,
     level: this.fb.group({
-      id: this.level
+      id: new FormControl(1)
     }),
     type: this.fb.group({
-      id: this.type
+      id: new FormControl(1)
     }),
     category: this.fb.group({
-      id: this.category
+      id: new FormControl(1)
     })
   });
 
@@ -71,6 +77,7 @@ export class AddQuestionModalComponent implements OnInit {
   }
 
   ondLoad() {
+
     $('#btn-create').attr('disabled', 'disabled');
     const submitBtn = document.getElementById('btn-create') as HTMLInputElement;
     const content = document.getElementById('ques_content') as HTMLInputElement;
@@ -84,16 +91,13 @@ export class AddQuestionModalComponent implements OnInit {
     const checkEnableButton = () => {
       if (
         (content.value !== '') &&
-        (cate.value !== '1: 1') &&
-        (level.value !== '1: 1') &&
-        (type.value !== '1: 1' ) ) {
-        alert('Có vào không ?');
-        alert('check===' + cate.value);
-        alert('check===' + level.value);
-        alert('check===' + type.value);
+        (cate.value !== '') &&
+        (level.value !== '') &&
+        (type.value !== '' ) ) {
         $('#btn-create').removeAttr('disabled');
       }
     };
+
     content.addEventListener('change', checkEnableButton);
     cate.addEventListener('change', checkEnableButton);
     type.addEventListener('change', checkEnableButton);
@@ -129,9 +133,7 @@ export class AddQuestionModalComponent implements OnInit {
   }
 
   createQuestion() {
-
     const ques: Questions = this.createForm.value;
-    console.log(ques);
     this.questionService.createQuestion(ques).subscribe(() => {
       document.getElementById('showModal').style.display = 'block';
       const title = 'Tạo Quizz Thành Công';
@@ -142,6 +144,7 @@ export class AddQuestionModalComponent implements OnInit {
       showPopupError(title, content);
     });
   }
+
 
   listAnswer() {
     this.questionService.newQuestion().subscribe((question) => {
@@ -181,6 +184,17 @@ export class AddQuestionModalComponent implements OnInit {
    resetFormCreate() {
     $('#ques_content').val('');
   }
+  resetFormAnswer() {
+    $('#ops').val('');
+  }
+  resetFormAll() {
+    this.resetFormCreate();
+    this.resetFormAnswer();
+    const str = '';
+    document.getElementById('show_answer').innerHTML = str;
+    document.getElementById('showModal').style.display = 'none';
+  }
+
 
   createAnswer() {
     this.questionService.newQuestion().subscribe((question) => {
@@ -198,6 +212,7 @@ export class AddQuestionModalComponent implements OnInit {
       this.questionService.addAnswer(answer).subscribe(() => {
         const title = 'Tạo Đáp Án Thành Công';
         showToastSuccess(title);
+        this.resetFormAnswer();
       });
       }, error => {
         const title = 'Thông báo';
@@ -234,7 +249,9 @@ export class AddQuestionModalComponent implements OnInit {
               this.resetFormCreate();
               const title = 'Tạo Đáp Án Thành Công';
               showToastSuccess(title);
-              window.location.reload();
+              this.resetFormAll();
+              this.injector.get(LayoutComponent).getAllQuestion();
+              // window.location.reload();
             });
           }
         }

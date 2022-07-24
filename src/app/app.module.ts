@@ -18,6 +18,7 @@ import {HomeComponent} from './home/home.component';
 import {SharedModule} from './shared/shared.module';
 import { TestPipe } from './test.pipe';
 import { SearchBoardFillterPipe } from './project/search-board-fillter.pipe';
+import { UserManagementComponent } from './user-management/user-management.component';
 
 
 
@@ -25,6 +26,7 @@ import { SearchBoardFillterPipe } from './project/search-board-fillter.pipe';
   declarations: [
     AppComponent,
     HomeComponent,
+    UserManagementComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-import {Component, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {Component, Injectable, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {Project} from '../model/project';
 import {ProjectService} from '../service/project/project.service';
 import {SendProjectService} from '../SendProjectService';
@@ -9,6 +9,8 @@ import {SortService} from '../service/sort-service.service';
 import {Observable} from 'rxjs';
 import {DecimalPipe} from '@angular/common';
 import {AddQuestionModalComponent} from './add-question-modal/add-question-modal.component';
+import {EditQuestionModalComponent} from './edit-question-modal/edit-question-modal.component';
+
 
 
 
@@ -16,7 +18,7 @@ import {AddQuestionModalComponent} from './add-question-modal/add-question-modal
   selector: 'app-layout',
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.css'],
-  providers: [SortService, DecimalPipe, AddQuestionModalComponent]
+  providers: [SortService, DecimalPipe, AddQuestionModalComponent, EditQuestionModalComponent]
 })
 export class LayoutComponent implements OnInit {
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
@@ -46,7 +48,7 @@ export class LayoutComponent implements OnInit {
 
 
   constructor(private projectService: ProjectService, private questionService: QuestionsService,
-              private service: SortService, private createQuestion: AddQuestionModalComponent,
+              private service: SortService, private createQuestion: AddQuestionModalComponent, private editQues: EditQuestionModalComponent
               ) {
 
     this.getAllProjects();
@@ -118,8 +120,16 @@ export class LayoutComponent implements OnInit {
   getDeleteId(deleteid) {
     localStorage.setItem('deleteid', deleteid);
   }
+  getUpdateId(editid) {
+    localStorage.setItem('editid', editid);
+  }
 
   onLoad() {
     this.createQuestion.ondLoad();
   }
+  onLoad2() {
+    this.editQues.ondLoad();
+    this.editQues.editedForm();
+  }
+
 }

@@ -223,7 +223,7 @@ export class TaskComponent implements OnInit {
         showPopupError('Thông báo', 'Có lỗi xảy ra');
       }
     });
-    this.addNotiOne("Đã thêm bạn vào 1 thẻ ", email);
+    this.addNotiOne('Đã thêm bạn vào 1 thẻ ', email);
   }
 
   addUserToBoard(formAddUser: NgForm) {

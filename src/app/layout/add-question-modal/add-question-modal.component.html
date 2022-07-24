@@ -6,7 +6,7 @@
       <div class="modal-header">
         <div class="col-sm-2">&nbsp;</div>
         <app-main-title title="&nbsp;&nbsp;&nbsp;Thêm Câu Hỏi" type="special"></app-main-title>
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
       </div>
       <form [formGroup]="createForm" (ngSubmit)="createQuestion()">
         <div class="modal-body" id="question_info">
@@ -15,23 +15,20 @@
             <input formControlName="content" [(ngModel)]="content" id="ques_content" type="text" class="form-control" style="color: black !important;" required>
           </div>
           <div formGroupName="category" class="form-group">
-            <label>Mục&nbsp; &nbsp;</label>
-            <select (change)="ondLoad()" formControlName="id"[(ngModel)]="category">
-              <option ng-selected="true"  >Chọn Mục</option>
-              <option id="category_id" *ngFor="let c of categories" [ngValue]="c.id+'chiếc'">{{c.name}}</option>
+            <label>Mục&nbsp; &nbsp; </label>
+            <select id="category.id" formControlName="id" style="width: 120px">
+              <option  id="category_id" *ngFor="let c of categories" [ngValue]="c.id">{{c.name}}</option>
             </select>
           </div>
-          <div formGroupName="level" class="form-group">
+          <div id="level.id" formGroupName="level" class="form-group">
             <label>Level &nbsp;</label>
-            <select (change)="ondLoad()" formControlName="id" [(ngModel)]="level">
-              <option value="0">Chọn Level</option>
+            <select  formControlName="id" style="width: 120px" >
               <option id="level_id" *ngFor="let l of levels" [ngValue]="l.id">{{l.level}}</option>
             </select>
           </div>
-          <div (change)="ondLoad()" formGroupName="type" class="form-group">
+          <div  formGroupName="type" class="form-group" >
             <label>Loại&nbsp; &nbsp;</label>
-            <select formControlName="id" [(ngModel)]="type">
-              <option  value="0">Chọn Type</option>
+            <select id="type.id" formControlName="id" style="width: 120px">
               <option id="type_id"  *ngFor="let t of types" [ngValue]="t.id">{{t.type}}</option>
             </select>
           </div>
