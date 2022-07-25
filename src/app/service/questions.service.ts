@@ -20,6 +20,14 @@ export class QuestionsService {
    return this.http.get(this.api);
   }
 
+  getAllUsers(): Observable<any> {
+    return this.http.get('http://localhost:8080/users');
+  }
+
+  deletUser(id: any): Observable<any> {
+    return this.http.get('http://localhost:8080/users/' + id);
+  }
+
   getAllCategories(): Observable<any> {
     return this.http.get('http://localhost:8080/categories');
   }

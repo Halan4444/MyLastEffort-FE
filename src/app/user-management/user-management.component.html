@@ -3,7 +3,7 @@
     <div style="background-color: white;border-radius: 5px">
       <app-main-title title="&nbsp;&nbsp;&nbsp;---- Danh Sách User ----" type="special"></app-main-title>
     </div>
-    <div class="row">
+    <div class="row" >
       <div class="col-xl-8">
         <div class="card">
           <div class="card-header pb-0">
@@ -22,7 +22,7 @@
             </div>
             <h5 class="card-title mb-0">Users</h5>
           </div>
-          <div class="card-body">
+          <div class="card-body" style="height: 660px">
             <table class="table table-striped" style="width:100%">
               <thead>
               <tr>
@@ -31,16 +31,16 @@
                 <th>Tài Khoản</th>
                 <th>Email</th>
                 <th>Quyền</th>
-                <th>Xóa</th>
+                <th>&nbsp;&nbsp;&nbsp;&nbsp;Xóa</th>
               </tr>
               </thead>
               <tbody>
               <tr *ngFor="let i = index; let user of userList | slice: (page-1) * pageSize : page * pageSize">
-                <td><img src="https://bootdey.com/img/Content/avatar/avatar1.png" width="32" height="32" class="rounded-circle my-n1" alt="Avatar"></td>
-                <td>{{user.content}}</td>
-                <td>{{user.content}}</td>
-                <td>{{user.content}}</td>
-                <td><span class="badge bg-success">Active</span>{{user.content}}</td>
+                <td><img src="{{user.avatar}}" width="50" height="50" class="rounded-circle my-n1" alt="Avatar"></td>
+                <td>{{user.name}}</td>
+                <td>{{user.username}}</td>
+                <td>{{user.email}}</td>
+                <td><span class="badge bg-success" style="line-height: 25px">{{user.roles[0].name.substring(5)}}</span></td>
                 <td>
                   <button href="#deleteQuestionModal"data-toggle="modal" (click)="getDeleteId([user.id])" class="btn btn-danger">Xóa</button>
                 </td>
@@ -85,19 +85,19 @@
               <tbody>
               <tr>
                 <th>Name</th>
-                <td>Angelica Ramos</td>
+                <td>{{userInfo.name}}</td>
               </tr>
               <tr>
-                <th>Company</th>
-                <td>The Wiz</td>
+                <th>Organization</th>
+                <td>Halana Codegym</td>
               </tr>
               <tr>
                 <th>Email</th>
-                <td>angelica@ramos.com</td>
+                <td>{{userInfo.email}}</td>
               </tr>
               <tr>
-                <th>Phone</th>
-                <td>+1234123123123</td>
+                <th>Account</th>
+                <td>{{userInfo.username}}</td>
               </tr>
               <tr>
                 <th>Status</th>
@@ -106,7 +106,7 @@
               </tbody>
             </table>
 
-            <strong>Activity</strong>
+            <strong>Hoạt Động Admin</strong>
 
             <ul class="timeline mt-2 mb-0">
               <li class="timeline-item">
