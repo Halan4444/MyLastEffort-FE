@@ -13,23 +13,27 @@ import {MainTitleComponent} from './main-title/main-title.component';
 
 
 @NgModule({
-  declarations: [
-    LayoutComponent,
-    ngbdPaginationBasic,
-    NgbdSortableHeader,
-    AddQuestionModalComponent,
-    EditQuestionModalComponent,
-    DeleteQuestionModalComponent,
+    declarations: [
+        LayoutComponent,
+        ngbdPaginationBasic,
+        NgbdSortableHeader,
+        AddQuestionModalComponent,
+        EditQuestionModalComponent,
+        DeleteQuestionModalComponent,
+        MainTitleComponent,
+        MainTitleComponent,
+    ],
+  exports: [
     MainTitleComponent,
-    MainTitleComponent,
+    MainTitleComponent
   ],
-  imports: [
-    CommonModule,
-    LayoutRoutingModule,
-    NgbModule,
-    FormsModule,
-    ReactiveFormsModule,
+    imports: [
+        CommonModule,
+        LayoutRoutingModule,
+        NgbModule,
+        FormsModule,
+        ReactiveFormsModule,
 
-  ]
+    ]
 })
 export class LayoutModule { }

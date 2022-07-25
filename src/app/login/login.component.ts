@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 import {AuthenticationService} from '../service/authentication.service';
 import {Router} from '@angular/router';
 import {User} from '../model/user';
@@ -10,6 +10,7 @@ import {showPopupError, showToastSuccess} from '../note';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+@Injectable({ providedIn: 'root' })
 export class LoginComponent implements OnInit {
   user: User = {};
 

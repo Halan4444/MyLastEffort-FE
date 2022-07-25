@@ -9,6 +9,8 @@ import {Ng2SearchPipeModule} from 'ng2-search-filter';
 import {SearchBoardFillterPipe} from '../project/search-board-fillter.pipe';
 import { QuestionsComponent } from './components/quizzes/questions/questions.component';
 import {QuizCreateFormComponent} from './components/quizzes/quiz-create-form/quiz-create-form.component';
+import {UserManagementComponent} from '../user-management/user-management.component';
+import {LayoutModule} from '../layout/layout.module';
 
 
 
@@ -19,6 +21,7 @@ import {QuizCreateFormComponent} from './components/quizzes/quiz-create-form/qui
     SidebarComponent,
     SearchBoardFillterPipe,
     QuestionsComponent,
+    UserManagementComponent,
   ],
   exports: [
     NavbarComponent,
@@ -30,6 +33,7 @@ import {QuizCreateFormComponent} from './components/quizzes/quiz-create-form/qui
     RouterModule,
     FormsModule,
     Ng2SearchPipeModule,
+    LayoutModule,
   ]
 })
 export class SharedModule { }

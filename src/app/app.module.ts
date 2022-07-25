@@ -26,7 +26,6 @@ import { UserManagementComponent } from './user-management/user-management.compo
   declarations: [
     AppComponent,
     HomeComponent,
-    UserManagementComponent,
   ],
   imports: [
     BrowserModule,

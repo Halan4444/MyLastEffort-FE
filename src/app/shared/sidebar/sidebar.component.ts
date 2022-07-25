@@ -3,11 +3,18 @@ import {ProjectService} from '../../service/project/project.service';
 import {Project} from '../../model/project';
 import {SendProjectService} from '../../SendProjectService';
 import {ListProjectService} from '../../ListProjectSerice';
+import {CurrentUser} from '../../model/current-user';
+import {SortService} from '../../service/sort-service.service';
+import {DecimalPipe} from '@angular/common';
+import {AddQuestionModalComponent} from '../../layout/add-question-modal/add-question-modal.component';
+import {EditQuestionModalComponent} from '../../layout/edit-question-modal/edit-question-modal.component';
+import {UserManagementComponent} from '../../user-management/user-management.component';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css']
+  styleUrls: ['./sidebar.component.css'],
+  providers: [UserManagementComponent]
 })
 export class SidebarComponent implements OnInit {
   projects: Project[] = [];
@@ -15,6 +22,10 @@ export class SidebarComponent implements OnInit {
   myProjects: Project[] = [];
 
   project: Project = {};
+
+  myUser: CurrentUser;
+
+
 
 
   constructor(private projectService: ProjectService,
@@ -42,7 +53,12 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getUserRole();
 
+  }
+
+  getUserRole() {
+    this.myUser = JSON.parse(localStorage.getItem('user'));
   }
 
   getProjects() {

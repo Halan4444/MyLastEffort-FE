@@ -163,7 +163,6 @@ export class AddQuestionModalComponent implements OnInit {
           }
           console.log(str);
           document.getElementById('show_answer').innerHTML = str;
-
         }
         if (question.type.type === 'multi') {
           // tslint:disable-next-line:prefer-for-of
@@ -174,7 +173,7 @@ export class AddQuestionModalComponent implements OnInit {
                <label class="form-check-label">${answer[i].content}</label><br><br>`;
             // this.answers = answer[i];
           }
-          // document.getElementById('show_answer').innerHTML = str;
+          document.getElementById('show_answer').innerHTML = str;
         }
         // console.log('size trong list == ',size)
       });

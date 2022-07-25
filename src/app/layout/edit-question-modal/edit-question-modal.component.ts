@@ -17,6 +17,7 @@ export class EditQuestionModalComponent implements OnInit {
   category: any;
   level: any;
   type: any;
+  types: any[];
 
   createForm = this.fb.group({
     content: this.content,
@@ -66,7 +67,7 @@ export class EditQuestionModalComponent implements OnInit {
     this.questionService.updateQuestionForm(editid).subscribe((data) => {
       $('#edit_ques_content').val(data.content);
       this.createForm.value.type.value = data.type.id;
-        this.questionService.updateCategoriesForm().subscribe((cate) => {
+      this.questionService.updateCategoriesForm().subscribe((cate) => {
         let str0 = '';
         // tslint:disable-next-line:prefer-for-of
         for (let i = 0; i < cate.length; i++) {

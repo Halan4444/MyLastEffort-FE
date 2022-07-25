@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {HomeComponent} from './home.component';
 import {AuthGuard} from '../login/helper/AuthGuard';
+import {UserManagementComponent} from '../user-management/user-management.component';
 
 
 const routes: Routes = [
@@ -9,6 +10,10 @@ const routes: Routes = [
     path: 'user',
     canActivate: [AuthGuard],
     loadChildren: () => import('../user-info/user-info.module').then(m => m.UserInfoModule)
+  },
+  {
+    path: 'manager',
+    component: UserManagementComponent
   },
   {
     path: 'home',
