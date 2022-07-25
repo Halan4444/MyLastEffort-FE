@@ -14,13 +14,15 @@ import {showPopupError, showToastSuccess} from '../note';
 })
 @Injectable({ providedIn: 'root' })
 export class UserManagementComponent implements OnInit {
+  constructor(private myService: QuestionsService,  private authenticationService: AuthenticationService,
+              private userService: UserService) { }
   userList: any[];
   page = 1;
   pageSize = 9;
   total: any;
   userInfo: any;
-  constructor(private myService: QuestionsService,  private authenticationService: AuthenticationService,
-              private userService: UserService) { }
+
+  deleteId: any;
 
   ngOnInit() {
     this.getAllUsers();
@@ -41,7 +43,6 @@ export class UserManagementComponent implements OnInit {
     this.myService.getAllUsers().subscribe(users => {
         this.userList = users;
         this.total = this.userList.length;
-        console.log("check==="+users);
       },
       error => {
         console.log(error);
@@ -52,14 +53,15 @@ export class UserManagementComponent implements OnInit {
     this.myService.deleteUser(deleteId).subscribe(() => {
         const title = 'Xóa User Thành Công';
         showToastSuccess(title);
-        setTimeout( () => {
-        }, 2000);
-        window.location.reload();
+       this.getAllUsers();
       },
       error => {
         const title = 'Thông báo';
         const content = 'Xóa User Thất Bại';
         showPopupError(title, content);
       });
+  }
+  setDeleteId(deleteId) {
+    this.deleteId = deleteId;
   }
 }

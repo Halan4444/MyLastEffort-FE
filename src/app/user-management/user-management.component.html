@@ -42,8 +42,9 @@
                 <td>{{user.email}}</td>
                 <td><span class="badge bg-success" style="line-height: 25px; width: 75px">{{user.roles[0].name.substring(5)}}</span></td>
                 <td>
-                  <button (click)="deleteUser([user.id])" class="btn btn-danger">Xóa</button>
+                  <button href="#deleteUserModal" data-toggle="modal" (click)="setDeleteId([user.id])" class="btn btn-danger">Xóa</button>
                 </td>
+
               </tr>
               </tbody>
             </table>
@@ -147,3 +148,28 @@
 
   </div>
 </div>
+<!-- Delete Modal HTML -->
+<div id="deleteUserModal" class="modal fade">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <form>
+        <div class="modal-header" id="delete_notice">
+          <h4 class="modal-title">Xóa User</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        </div>
+        <div id="dwe">
+          <div class="modal-body">
+            <input type="text" required hidden>
+            <p>Bạn có chắc muốn xóa User này không ?</p>
+            <p class="text-warning"><small>Xóa rồi không lấy lại được đâu !</small></p>
+          </div>
+        </div>
+        <div class="modal-footer" id="btn-delete-ques">
+          <input type="button" class="btn btn-danger" data-dismiss="modal" value="Đóng">
+          <input type="submit" class="btn btn-danger" (click)="deleteUser([deleteId])" value="Xóa">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

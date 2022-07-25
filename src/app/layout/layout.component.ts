@@ -21,6 +21,21 @@ import {EditQuestionModalComponent} from './edit-question-modal/edit-question-mo
   providers: [SortService, DecimalPipe, AddQuestionModalComponent, EditQuestionModalComponent]
 })
 export class LayoutComponent implements OnInit {
+
+
+
+
+  constructor(private projectService: ProjectService, private questionService: QuestionsService,
+              private service: SortService, private createQuestion: AddQuestionModalComponent, private editQues: EditQuestionModalComponent
+              ) {
+
+    this.getAllProjects();
+    this.getMyProjects();
+    this.getAllProjects();
+    this.getAllQuestion();
+    this.questionList$ = service.questions$;
+    this.total$ = service.total$;
+  }
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
   projects: Project[] = [];
@@ -44,20 +59,7 @@ export class LayoutComponent implements OnInit {
 
   collectionSize = this.questionList.length;
 
-
-
-
-  constructor(private projectService: ProjectService, private questionService: QuestionsService,
-              private service: SortService, private createQuestion: AddQuestionModalComponent, private editQues: EditQuestionModalComponent
-              ) {
-
-    this.getAllProjects();
-    this.getMyProjects();
-    this.getAllProjects();
-    this.getAllQuestion();
-    this.questionList$ = service.questions$;
-    this.total$ = service.total$;
-  }
+  deleteQuesId: any;
 
   ngOnInit(): void {
     this.getAllQuestion();
@@ -118,7 +120,7 @@ export class LayoutComponent implements OnInit {
     this.getAllQuestion();
   }
   getDeleteId(deleteid) {
-    localStorage.setItem('deleteid', deleteid);
+    this.deleteQuesId = deleteid;
   }
   getUpdateId(editid) {
     localStorage.setItem('editid', editid);
