@@ -3,6 +3,7 @@ import {QuestionsService} from '../service/questions.service';
 import {User} from '../model/user';
 import {AuthenticationService} from '../service/authentication.service';
 import {UserService} from '../service/user.service';
+import {showPopupError, showToastSuccess} from '../note';
 
 
 
@@ -15,7 +16,7 @@ import {UserService} from '../service/user.service';
 export class UserManagementComponent implements OnInit {
   userList: any[];
   page = 1;
-  pageSize = 5;
+  pageSize = 9;
   total: any;
   userInfo: any;
   constructor(private myService: QuestionsService,  private authenticationService: AuthenticationService,
@@ -26,12 +27,10 @@ export class UserManagementComponent implements OnInit {
     this.getUserInfor();
   }
 
-  getDeleteId(param: any[]) {
-  }
 
   getUserInfor() {
     this.userService.getUser().subscribe(data => {
-      console.log(data);
+
       this.userInfo = data;
     }, error => {
       console.log(error);
@@ -42,19 +41,25 @@ export class UserManagementComponent implements OnInit {
     this.myService.getAllUsers().subscribe(users => {
         this.userList = users;
         this.total = this.userList.length;
+        console.log("check==="+users);
       },
       error => {
         console.log(error);
       });
   }
 
-  deleteUser(){
-    this.myService.getAllUsers().subscribe(users => {
-        this.userList = users;
-        this.total = this.userList.length;
+  deleteUser(deleteId) {
+    this.myService.deleteUser(deleteId).subscribe(() => {
+        const title = 'Xóa User Thành Công';
+        showToastSuccess(title);
+        setTimeout( () => {
+        }, 2000);
+        window.location.reload();
       },
       error => {
-        console.log(error);
+        const title = 'Thông báo';
+        const content = 'Xóa User Thất Bại';
+        showPopupError(title, content);
       });
   }
 }

@@ -24,8 +24,8 @@ export class QuestionsService {
     return this.http.get('http://localhost:8080/users');
   }
 
-  deletUser(id: any): Observable<any> {
-    return this.http.get('http://localhost:8080/users/' + id);
+  deleteUser(id: any): Observable<any> {
+    return this.http.delete(`http://localhost:8080/users/${id}`);
   }
 
   getAllCategories(): Observable<any> {

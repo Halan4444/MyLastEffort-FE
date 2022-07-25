@@ -11,6 +11,7 @@ import { QuestionsComponent } from './components/quizzes/questions/questions.com
 import {QuizCreateFormComponent} from './components/quizzes/quiz-create-form/quiz-create-form.component';
 import {UserManagementComponent} from '../user-management/user-management.component';
 import {LayoutModule} from '../layout/layout.module';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -28,12 +29,13 @@ import {LayoutModule} from '../layout/layout.module';
     FooterComponent,
     SidebarComponent,
   ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    FormsModule,
-    Ng2SearchPipeModule,
-    LayoutModule,
-  ]
+    imports: [
+        CommonModule,
+        RouterModule,
+        FormsModule,
+        Ng2SearchPipeModule,
+        LayoutModule,
+        NgbModule,
+    ]
 })
 export class SharedModule { }

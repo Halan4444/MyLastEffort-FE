@@ -1,7 +1,9 @@
 
 body{margin-top:20px;
   background-color: #f7f7fc;
+
 }
+
 
 .timeline {
   list-style-type: none;
@@ -34,6 +36,7 @@ body{margin-top:20px;
 .card {
   margin-bottom: 24px;
   box-shadow: 0 0 0.875rem 0 rgba(33,37,41,.05);
+
 }
 .card {
   position: relative;
@@ -41,14 +44,23 @@ body{margin-top:20px;
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #fff;
-  background-clip: initial;
-  border: 0 solid transparent;
-  border-radius: .25rem;
+  /*background-color: #fff;*/
+  /*background-clip: initial;*/
+  /*border: 0 solid transparent;*/
+  /*border-radius: .25rem;*/
+  /* From https://css.glass */
+  /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(1.3px);
+  -webkit-backdrop-filter: blur(1.3px);
+  border: 1px solid rgba(255, 255, 255, 0.78);
 }
 .card-body {
   flex: 1 1 auto;
   padding: 1.25rem;
+
 }
 .card-header:first-child {
   border-radius: .25rem .25rem 0 0;

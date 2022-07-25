@@ -1,7 +1,7 @@
 <div class="container">
   <div class="container-fluid p-0">
     <div style="background-color: white;border-radius: 5px">
-      <app-main-title title="&nbsp;&nbsp;&nbsp;---- Danh Sách User ----" type="special"></app-main-title>
+      <app-main-title id="title" title="&nbsp;&nbsp;&nbsp;---- Danh Sách User ----" type="special"></app-main-title>
     </div>
     <div class="row" >
       <div class="col-xl-8">
@@ -14,13 +14,13 @@
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right">
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                  <a class="dropdown-item" href="#">Something else here</a>
+                  <a class="dropdown-item" href="#">Tìm Kiếm</a>
+                  <a class="dropdown-item" href="#">Sửa Danh Sách</a>
+                  <a class="dropdown-item" href="#">Xóa Toàn Bộ</a>
                 </div>
               </div>
             </div>
-            <h5 class="card-title mb-0">Users</h5>
+            <h5 class="card-title mb-0">Danh Sách Chung</h5>
           </div>
           <div class="card-body" style="height: 660px">
             <table class="table table-striped" style="width:100%">
@@ -35,18 +35,23 @@
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let i = index; let user of userList | slice: (page-1) * pageSize : page * pageSize">
-                <td><img src="{{user.avatar}}" width="50" height="50" class="rounded-circle my-n1" alt="Avatar"></td>
+              <tr *ngFor="let i = index; let user of userList | slice: (page-1) * pageSize : page * pageSize" >
+                <td><img src="{{user.avatar}}" width="50" height="50" class="rounded-circle my-n1" alt="Avatar" ></td>
                 <td>{{user.name}}</td>
                 <td>{{user.username}}</td>
                 <td>{{user.email}}</td>
-                <td><span class="badge bg-success" style="line-height: 25px">{{user.roles[0].name.substring(5)}}</span></td>
+                <td><span class="badge bg-success" style="line-height: 25px; width: 75px">{{user.roles[0].name.substring(5)}}</span></td>
                 <td>
-                  <button href="#deleteQuestionModal"data-toggle="modal" (click)="getDeleteId([user.id])" class="btn btn-danger">Xóa</button>
+                  <button (click)="deleteUser([user.id])" class="btn btn-danger">Xóa</button>
                 </td>
               </tr>
               </tbody>
             </table>
+            <p> Trang Danh Sách </p>
+            <ngb-pagination
+              [(page)]="page"
+              [pageSize]="pageSize"
+              [collectionSize]="userList.length"></ngb-pagination>
           </div>
         </div>
       </div>
@@ -72,7 +77,7 @@
           <div class="card-body">
             <div class="row g-0">
               <div class="col-sm-3 col-xl-12 col-xxl-3 text-center">
-                <img src="https://bootdey.com/img/Content/avatar/avatar3.png" width="64" height="64" class="rounded-circle mt-2" alt="Angelica Ramos">
+                <img src="{{userInfo.avatar}}" width="80" height="80" class="rounded-circle mt-2" alt="Angelica Ramos">
               </div>
               <div class="col-sm-9 col-xl-12 col-xxl-9">
                 <strong>Giới Thiệu</strong>
@@ -80,7 +85,6 @@
                   magna aliqua.</p>
               </div>
             </div>
-
             <table class="table table-sm mt-2 mb-4">
               <tbody>
               <tr>
