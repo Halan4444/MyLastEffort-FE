@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 import {ProjectService} from '../../service/project/project.service';
 import {Project} from '../../model/project';
 import {SendProjectService} from '../../SendProjectService';
@@ -16,6 +16,7 @@ import {UserManagementComponent} from '../../user-management/user-management.com
   styleUrls: ['./sidebar.component.css'],
   providers: [UserManagementComponent]
 })
+@Injectable({ providedIn: 'root' })
 export class SidebarComponent implements OnInit {
   projects: Project[] = [];
 
@@ -24,7 +25,6 @@ export class SidebarComponent implements OnInit {
   project: Project = {};
 
   myUser: CurrentUser;
-
 
 
 
@@ -59,6 +59,7 @@ export class SidebarComponent implements OnInit {
 
   getUserRole() {
     this.myUser = JSON.parse(localStorage.getItem('user'));
+    console.log(this.myUser);
   }
 
   getProjects() {

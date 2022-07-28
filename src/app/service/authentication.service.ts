@@ -32,6 +32,7 @@ export class AuthenticationService {
 
   logout() {
     localStorage.removeItem('user');
+    sessionStorage.removeItem('id'),
     this.currentUserSubject.next(null);
   }
 

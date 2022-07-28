@@ -23,6 +23,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     SearchBoardFillterPipe,
     QuestionsComponent,
     UserManagementComponent,
+
   ],
   exports: [
     NavbarComponent,

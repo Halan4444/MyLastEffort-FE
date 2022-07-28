@@ -20,6 +20,10 @@ export class QuestionsService {
    return this.http.get(this.api);
   }
 
+  getAllTest(): Observable<any> {
+    return this.http.get('http://localhost:8080/tests');
+  }
+
   getAllUsers(): Observable<any> {
     return this.http.get('http://localhost:8080/users');
   }
@@ -42,6 +46,30 @@ export class QuestionsService {
 
   getquestionById(id): Observable<any> {
     return this.http.get(`${this.api}/${id}`);
+  }
+
+  searchQuestion(content: any, type: any, category: any, level: any): Observable<any> {
+    if (content === null) {
+      // tslint:disable-next-line:max-line-length
+      return this.http.get<Questions>(`http://localhost:8080/questions/search?contents=&type_id=${type}&category_id=${category}&level_id=${level}`);
+    }
+    // tslint:disable-next-line:max-line-length
+    return this.http.get<Questions>(`http://localhost:8080/questions/search?contents=${content}&type_id=${type}&category_id=${category}&level_id=${level}`);
+  }
+
+
+
+  createTest(test: any): Observable<any> {
+    return this.http.post<any>( 'http://localhost:8080/tests', test);
+  }
+
+  addTest(test: any): Observable<any> {
+    return this.http.post<any>( 'http://localhost:8080/tests', test);
+  }
+
+  addQuestionToTest(quesId: any): Observable<any> {
+    // @ts-ignore
+    return this.http.get<any>(`http://localhost:8080/questions/${quesId}`);
   }
 
   createQuestion(question: Questions): Observable<any> {
@@ -79,4 +107,5 @@ export class QuestionsService {
   deleteQuestion(id: any): Observable<any> {
     return this.http.delete(`${this.api}/${id}`);
   }
+
 }

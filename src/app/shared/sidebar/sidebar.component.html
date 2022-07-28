@@ -48,7 +48,7 @@
       </ul>
     </div>
   </li>
-  <li class="nav-item" style="margin-top: 6px" >
+  <li *ngIf="myUser.roles[0].authority === 'ROLE_ADMIN' " class="nav-item" style="margin-top: 6px" >
     <a class="nav-link" data-toggle="collapse" href="#user-management" aria-expanded="false"
        aria-controls="project-of-me">
       <i class="ti-book menu-icon"></i>

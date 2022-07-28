@@ -10,6 +10,8 @@ import { AddQuestionModalComponent } from './add-question-modal/add-question-mod
 import { EditQuestionModalComponent } from './edit-question-modal/edit-question-modal.component';
 import { DeleteQuestionModalComponent } from './delete-question-modal/delete-question-modal.component';
 import {MainTitleComponent} from './main-title/main-title.component';
+import { TestListComponent } from './test-list/test-list.component';
+import { AddTestComponent } from './add-test/add-test.component';
 
 
 @NgModule({
@@ -22,6 +24,9 @@ import {MainTitleComponent} from './main-title/main-title.component';
         DeleteQuestionModalComponent,
         MainTitleComponent,
         MainTitleComponent,
+        TestListComponent,
+        AddTestComponent,
+      TestListComponent
     ],
   exports: [
     MainTitleComponent,

@@ -134,4 +134,8 @@ export class LayoutComponent implements OnInit {
     this.editQues.editedForm();
   }
 
+  changeTest() {
+    document.getElementById('QuestionList').style.display = 'none';
+    document.getElementById('TestId').style.display = 'block';
+  }
 }

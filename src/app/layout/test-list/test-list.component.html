@@ -1,0 +1,120 @@
+<div id="TestId" class="col-md-8 offset-md-2 mt-4"  style="display: block;background: rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(1.3px);
+  -webkit-backdrop-filter: blur(1.3px);
+  border: 1px solid rgba(255, 255, 255, 0.78);padding: 15px 15px 15px 15px">
+  <!--    <h1 align="center"  style="color: white">Danh Sách Câu Hỏi</h1>-->
+  <button  style="float: right"  class="btn btn-success" (click)="changeTest()" class="btn btn-success"
+          data-toggle="modal" >Quản lý câu hỏi</button>
+  <button  style="float: right"  class="btn btn-success" href="#addTestModal" class="btn btn-success"
+          data-toggle="modal" >Thêm bài test</button>
+  <div style="font-weight: bold">
+    <h4>Có {{total}} Bài Test </h4>
+  </div>
+  <hr>
+  <div class="mb-3 row">
+    <label for="table-complete-search" class="col-xs-3 col-sm-auto col-form-label">Search:</label>
+    <div class="col-xs-3 col-sm-auto">
+      <input id="table-complete-search" type="text" class="form-control" name="searchTerm" style="color: black!important;">
+    </div>
+  </div>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">STT</th>
+      <th scope="col">Tên</th>
+      <th scope="col">User</th>
+      <th scope="col">Ngày</th>
+      <th scope="col">Level</th>
+      <th scope="col">Làm Bài</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let i = index; let ques of testList | slice: (page-1) * pageSize : page * pageSize">
+      <td>{{i+1}}</td>
+      <td>{{ques.name}}</td>
+      <td >{{ques.user.name}}</td>
+      <td>{{ques.date}}</td>
+      <td>{{ques.level.level}}</td>
+      <td id="btn-doQuizz" style="width: 35px">
+        <a class="btn btn-primary" onclick="findQuestionByTest(' + item.id + '); countDown()">Làm Test</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <p> Trang Danh Sách </p>
+  <ngb-pagination
+    [(page)]="page"
+    [pageSize]="pageSize"
+    [collectionSize]="testList.length"></ngb-pagination>
+</div>
+
+
+
+<!-- Add Modal HTML -->
+<div id="addTestModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+          <div class="col-sm-2">&nbsp;</div>
+          <app-main-title title="&nbsp;&nbsp;&nbsp;Thêm Bài Test" type="special"></app-main-title>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        </div>
+        <input type="text" hidden class="form-control" required>
+        <form [formGroup]="createForm" >
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Bài Test</label>
+            <input style="color: black!important;" formControlName="content" [(ngModel)]="name" id="test_name" type="text" class="form-control" required>
+          </div>
+          <div formGroupName="level">
+            <label>Level&nbsp;</label>
+            <select formControlName="id" name="" id="level_test"style="width: 120px">
+              <option *ngFor="let l of levels" [ngValue]="l.id" >{{l.level}}</option>
+            </select>&nbsp;
+          </div>
+          <form [formGroup]="searchQuesForm" >
+          <div class="form-group" id="search_ques_info">
+            <input formControlName="content" type="text" id="search_ques" placeholder="Tìm Kiếm Theo Tên" style="line-height: 32px">&nbsp;
+            <input (click)="searchQuestion()" type="submit" class="btn btn-success" value="Tìm Kiếm" >
+            <br>
+            <br>
+            <div formGroupName="type">
+            <label>Loại &nbsp;</label>
+            <select formControlName="id"  name="" id="type_ques" style="width: 120px">
+              <option *ngFor="let t of types" [ngValue]="t.id" >{{t.type}}</option>
+            </select>&nbsp;
+            </div>
+
+            <div formGroupName="category">
+            <label>Mục &nbsp;</label>
+            <select formControlName="id" name="" id="category_ques" style="width: 120px">
+              <option *ngFor="let c of categories" [ngValue]="c.id" >{{c.name}}</option>
+            </select>&nbsp;
+            </div>
+
+            <div formGroupName="level">
+            <label>Level&nbsp;</label>
+            <select formControlName="id" name="" id="level_ques"style="width: 120px">
+              <option *ngFor="let l of levels" [ngValue]="l.id" >{{l.level}}</option>
+            </select>&nbsp;
+            </div>
+
+          </div>
+          <div class="form-group" id="show_ques"  style="display:none" >
+            <tr *ngFor="let ques of QuestionList" >
+            <td style="width: 100%" class="table-light"><p>{{ques.content}}</p></td>
+            <td  ><button [id]="'ques'+ques.id" (click)="addQuestionToTest(ques.id)" class="btn btn-primary">Add</button></td>
+            </tr>
+          </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <input type="button" class="btn btn-default" data-dismiss="modal" value="Đóng">
+          <input type="submit" class="btn btn-success" (click)="createTest()" value="Thêm Test">
+        </div>
+        </form>
+    </div>
+  </div>
+</div>

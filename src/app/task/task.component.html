@@ -1,8 +1,9 @@
+<div style="margin: 100px">
+  <div >
 <form>
-  Search <input (input)="searchTask(boardId)" type="text" id="title-search-task" name="title"
+  Tìm Kiếm <input (input)="searchTask(boardId)" type="text" id="title-search-task" name="title"
                 placeholder="Tìm kiếm thẻ">
 </form>
-
 Thành viên trong bảng:
 <div class="row" style="max-width: 90%; overflow-x: auto">
   <div class="col-md-12">
@@ -15,7 +16,7 @@ Thành viên trong bảng:
       </div>
     </div>
   </div>
-
+</div>
   <div class="modal fade" id="staticRemoveUserInBoard" tabindex="-1"
        aria-labelledby="exampleModalLabelRemoveUserInBoard" aria-hidden="true">
     <div class="modal-dialog">
@@ -181,7 +182,7 @@ Nhập tên nhãn..." type="text" formControlName="content" ngModel
             <!--          <p style="font-size: 17px;margin: 5px 0px 0px 10px">Add New Card</p>-->
             <div class="row-3" style="padding: 5px 0px 5px 4px;margin-right: 4px">
               <input placeholder="
-Enter tag title..." class="form-control" type="text" formControlName="title" style="width: 100%">
+Nhập nhãn tag..." class="form-control" type="text" formControlName="title" style="width: 100%; color: black!important;">
             </div>
             <div class="row float-end">
               <div class="addFormCard" style="padding-bottom: 10px">
@@ -212,7 +213,6 @@ Enter tag title..." class="form-control" type="text" formControlName="title" sty
           <div class="row">
             <form [formGroup]="newStatus" (ngSubmit)="addNewStatus()" style="height: 150px">
 
-
               <div>
                 <p style="font-size: 15px; margin-left: 5px">Add New Status</p>
                 <input type="text" placeholder="
@@ -239,6 +239,7 @@ Enter status title..." class="form-control" formControlName="title"
     </div>
 
   </div>
+</div>
 
   <!--// Neu la viewer-->
   <div *ngIf="isViewer == true" class="board"
