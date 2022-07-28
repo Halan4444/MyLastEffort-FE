@@ -62,11 +62,12 @@
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         </div>
         <input type="text" hidden class="form-control" required>
-        <form [formGroup]="createForm" >
+
         <div class="modal-body">
+          <form [formGroup]="createForm" >
           <div class="form-group">
             <label>Bài Test</label>
-            <input style="color: black!important;" formControlName="content" [(ngModel)]="name" id="test_name" type="text" class="form-control" required>
+            <input style="color: black!important;" formControlName="name" id="test_name" type="text" class="form-control" required>
           </div>
           <div formGroupName="level">
             <label>Level&nbsp;</label>
@@ -74,6 +75,7 @@
               <option *ngFor="let l of levels" [ngValue]="l.id" >{{l.level}}</option>
             </select>&nbsp;
           </div>
+          </form>
           <form [formGroup]="searchQuesForm" >
           <div class="form-group" id="search_ques_info">
             <input formControlName="content" type="text" id="search_ques" placeholder="Tìm Kiếm Theo Tên" style="line-height: 32px">&nbsp;
@@ -114,7 +116,6 @@
           <input type="button" class="btn btn-default" data-dismiss="modal" value="Đóng">
           <input type="submit" class="btn btn-success" (click)="createTest()" value="Thêm Test">
         </div>
-        </form>
     </div>
   </div>
 </div>

@@ -41,7 +41,7 @@ export class TestListComponent implements OnInit {
   deleteQuesId: any;
 
   createForm = this.fb.group({
-    name: this.name,
+    name: new FormControl(),
     level: this.fb.group({
       id: new FormControl(1)
     }),
@@ -112,11 +112,23 @@ export class TestListComponent implements OnInit {
   }
 
   createTest() {
-    // let name = (document.getElementById('test_name')as HTMLInputElement).value;
-    // let level = (document.getElementById('level_test')as HTMLInputElement).value;
-    this.questionService.createTest(this.createForm).subscribe((test) => {
+    const name = (document.getElementById('test_name')as HTMLInputElement).value;
+    const level = (document.getElementById('level_test')as HTMLInputElement).value;
+    const test = {
+      name: name,
+      level: {
+        id: this.createForm.value.level.id
+      },
+      user: {
+        id: sessionStorage.getItem('id')
+        // id: 1
+      },
+      questions: this.ListQuestion    };
+    JSON.stringify(test);
+    this.questionService.createTest(test).subscribe((data) => {
       const title = 'Tạo Test Thành Công';
       showToastSuccess(title);
+      this.getAllTest();
     }, error => {
       const title = 'Thông báo';
       const content = 'Tạo Test Thất Bại';
@@ -152,7 +164,6 @@ export class TestListComponent implements OnInit {
     }); }
 
   addQuestionToTest(quesId) {
-
     this.questionService.addQuestionToTest(quesId).subscribe((test) => {
       this.ListQuestion.push(test);
       $('#ques' + quesId).hide();
