@@ -72,6 +72,56 @@ export class QuestionsService {
     return this.http.get<any>(`http://localhost:8080/questions/${quesId}`);
   }
 
+  findAnswer(answerId: any): Observable<any> {
+    // @ts-ignore
+    return this.http.get<any>(`http://localhost:8080/questions/${answerId}/answers`);
+  }
+
+
+  findQuestionByTest(testId: any): Observable<any> {
+    // @ts-ignore
+    return this.http.get<any>(`http://localhost:8080/tests/${testId}/questions`);
+  }
+
+  submitTest(currentTest: any): Observable<any> {
+    // @ts-ignore
+    return this.http.get<any>(`http://localhost:8080/tests/${currentTest}/questions`);
+  }
+
+  submitTestAns(answerId: any): Observable<any> {
+    // @ts-ignore
+    return this.http.get<any>(`http://localhost:8080/questions/${answerId}/answers`);
+  }
+
+  submitTestResult(index: any): Observable<any> {
+    // @ts-ignore
+    return this.http.get<any>(`http://localhost:8080/answers/${index}`);
+  }
+
+  submitTestLast(resultObj: any): Observable<any> {
+    return this.http.get<any>('http://localhost:8080/results', resultObj);
+  }
+
+  compareAnswerQues(resultId: any): Observable<any> {
+    return this.http.get<any>(`http://localhost:8080/results/${resultId}`);
+  }
+  compareAnswerTest(TestId: any): Observable<any> {
+    return this.http.get<any>(`http://localhost:8080/tests/${TestId}/questions`);
+  }
+
+  compareAnswerResult(answerId: any): Observable<any> {
+    return this.http.get<any>(`http://localhost:8080/questions/${answerId}/answers`);
+  }
+
+  getResult(resultId: any): Observable<any> {
+    return this.http.get<any>(`http://localhost:8080/results/${resultId}`);
+  }
+
+  getMark(resultId: any): Observable<any> {
+    return this.http.get<any>(`http://localhost:8080/results/get-size?id=${resultId}`);
+  }
+
+
   createQuestion(question: Questions): Observable<any> {
     return this.http.post<Questions>(this.api, question);
   }

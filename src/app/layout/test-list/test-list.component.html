@@ -1,9 +1,13 @@
-<div id="TestId" class="col-md-8 offset-md-2 mt-4"  style="display: block;background: rgba(255, 255, 255, 0.14);
+<button  id="targets" style="float: right;display: none;" class="btn btn-success"
+         (click)="submitTest()" class="btn btn-success"  >Gửi Bài</button>
+<button  id="return" style="float: right;display: none;" class="btn btn-success"
+         (click)="submitTest()" class="btn btn-success"  >Gửi Bài</button>
+<div id="display" class="col-md-8 offset-md-2 mt-4"  style="display: block;background: rgba(255, 255, 255, 0.14);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(1.3px);
   -webkit-backdrop-filter: blur(1.3px);
-  border: 1px solid rgba(255, 255, 255, 0.78);padding: 15px 15px 15px 15px">
+  border: 1px solid rgba(255, 255, 255, 0.78);padding: 15px 15px 15px 15px" >
   <!--    <h1 align="center"  style="color: white">Danh Sách Câu Hỏi</h1>-->
   <button  style="float: right"  class="btn btn-success" (click)="changeTest()" class="btn btn-success"
           data-toggle="modal" >Quản lý câu hỏi</button>
@@ -19,7 +23,7 @@
       <input id="table-complete-search" type="text" class="form-control" name="searchTerm" style="color: black!important;">
     </div>
   </div>
-  <table class="table table-striped">
+  <table class="table table-striped" >
     <thead>
     <tr>
       <th scope="col">STT</th>
@@ -38,7 +42,7 @@
       <td>{{ques.date}}</td>
       <td>{{ques.level.level}}</td>
       <td id="btn-doQuizz" style="width: 35px">
-        <a class="btn btn-primary" onclick="findQuestionByTest(' + item.id + '); countDown()">Làm Test</a>
+        <a class="btn btn-primary" (click)="findQuestionByTest(ques.id); countDown()">Làm Test</a>
       </td>
     </tr>
     </tbody>
