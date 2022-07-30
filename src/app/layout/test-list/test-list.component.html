@@ -1,6 +1,5 @@
+
 <button  id="targets" style="float: right;display: none;" class="btn btn-success"
-         (click)="submitTest()" class="btn btn-success"  >Gửi Bài</button>
-<button  id="return" style="float: right;display: none;" class="btn btn-success"
          (click)="submitTest()" class="btn btn-success"  >Gửi Bài</button>
 <div id="display" class="col-md-8 offset-md-2 mt-4"  style="display: block;background: rgba(255, 255, 255, 0.14);
   border-radius: 16px;
@@ -37,12 +36,12 @@
     <tbody>
     <tr *ngFor="let i = index; let ques of testList | slice: (page-1) * pageSize : page * pageSize">
       <td>{{i+1}}</td>
-      <td>{{ques.name}}</td>
+      <td >{{ques.name}}</td>
       <td >{{ques.user.name}}</td>
       <td>{{ques.date}}</td>
       <td>{{ques.level.level}}</td>
       <td id="btn-doQuizz" style="width: 35px">
-        <a class="btn btn-primary" (click)="findQuestionByTest(ques.id); countDown()">Làm Test</a>
+        <a class="btn btn-primary" (click)="findQuestionByTest(ques.id);countDown();timeLine()">Làm Test</a>
       </td>
     </tr>
     </tbody>

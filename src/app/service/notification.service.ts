@@ -3,7 +3,7 @@ import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 const API_URL = `${environment.apiUrl}/notifications`;
-import {Notification} from "../model/notification";
+import {Notification} from '../model/notification';
 @Injectable({
   providedIn: 'root'
 })

@@ -99,7 +99,7 @@ export class QuestionsService {
   }
 
   submitTestLast(resultObj: any): Observable<any> {
-    return this.http.get<any>('http://localhost:8080/results', resultObj);
+    return this.http.post<any>('http://localhost:8080/results', resultObj);
   }
 
   compareAnswerQues(resultId: any): Observable<any> {

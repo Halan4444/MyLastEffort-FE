@@ -8,6 +8,8 @@ import {showPopupError, showToastSuccess} from '../../note';
 import {SidebarComponent} from '../../shared/sidebar/sidebar.component';
 import {count} from 'rxjs/operators';
 import Timer = NodeJS.Timer;
+import {SocketService} from '../../service/socket.service';
+import {waitForAsync} from '@angular/core/testing';
 
 @Component({
   selector: 'app-test-list',
@@ -18,7 +20,8 @@ export class TestListComponent implements OnInit {
   // tslint:disable-next-line:max-line-length
   constructor(private fb: FormBuilder, private projectService: ProjectService,
               private questionService: QuestionsService,
-              private injection: Injector, private elementRef: ElementRef ) { }
+              private injection: Injector, private elementRef: ElementRef,
+              private socketService: SocketService) { }
   testList: any[] = [];
   total: number;
   p = 1;
@@ -40,6 +43,8 @@ export class TestListComponent implements OnInit {
   ListQuestion: any[] = [];
   currentTest: any;
   endTime: any ;
+  lineTime: number;
+  firstCount: number;
 
   collectionSize = this.testList.length;
 
@@ -187,15 +192,19 @@ export class TestListComponent implements OnInit {
   }
 
   findQuestionByTest(id) {
+
     let show = '';
     console.log('testid', id);
     this.currentTest = id;
     localStorage.setItem('idddd', id);
     this.questionService.findQuestionByTest(id).subscribe((question) => {
       this.count = (question.length) * 5 + 1;
+      this.firstCount = this.count;
+      alert(this.firstCount);
+      this.lineTime =  0;
       // console.log("question", question)
       show = `
-                <div style="margin-top: 100px!important;" class="container-xl">
+<!--                <div style="margin-top: 100px!important;" class="container-xl">-->
         <div class="table-responsive" style="overflow:hidden!important; ">
             <div id="submitTest" class="table-wrapper">
                 <div class="table-title">
@@ -206,8 +215,15 @@ export class TestListComponent implements OnInit {
                         <div class="col-sm-6" style="display: inline-block">
                             <h2 id="timeout" style="float: right;"></h2>
                         </div>
+                        <div id="time_line" class="time_line" style="
+    bottom: 0px;
+    left: 0px;
+    height: 6px;
+    background: #ffffff;
+    border: solid black 0.25px;"></div>
                     </div>
                 </div>
+
                 <table  class="table table-striped table-hover">
                     <thead>
                     </thead>
@@ -220,7 +236,7 @@ export class TestListComponent implements OnInit {
         show +=
           `
                     <tr>
-                        <h6 style="margin: 10px 0px">Question ${i + 1}: ${question[i].content}</h6>
+                        <h6 style="margin: 10px 0px">Câu ${i + 1}: ${question[i].content}</h6>
                         <div class="form-check" style="margin-left: 10px" id="show${question[i].id}">`;
         const name = i + '';
         this.questionService.findAnswer(answerId).subscribe((answer) => {
@@ -258,6 +274,7 @@ export class TestListComponent implements OnInit {
       $('#targets').appendTo('#submitTest');
       const title = 'Bắt Đầu Làm Quizz';
       showToastSuccess(title);
+      this.timeLine();
     }, error => {
       const title = 'Thông báo';
       const content = 'Có Lỗi Rồi';
@@ -269,19 +286,25 @@ export class TestListComponent implements OnInit {
     // tslint:disable-next-line:no-unused-expression
     this.count--;
     this.endTime = setTimeout(() => { this.countDown(); }, 1000);
-    document.getElementById('timeout').innerHTML = String(this.count);
+    document.getElementById('timeout').innerHTML = 'Còn Lại: ' + String(this.count) + 's';
     if (this.count <= 0) {
       clearTimeout(this.endTime);
-      this.submitTest();
       const title = 'Thông báo';
       const content = 'Hết Giờ Rồi Bạn Ơi!';
       showPopupError(title, content);
+      setTimeout(() => {this.submitTest(); }, 2000);
     }
+  }
+
+  timeLine() {
+    this.lineTime += 100 / (this.firstCount * 100) ;
+    // alert(this.lineTime);
+    document.getElementById('time_line').style.width = (this.lineTime) + '%';
+    setTimeout(() => { this.timeLine(); }, 10);
   }
 
 
   submitTest() {
-    alert('CÓ vào không ?');
     const answerss = [];
     this.questionService.submitTest(this.currentTest).subscribe((question) => {
         // tslint:disable-next-line:prefer-for-of
@@ -314,7 +337,7 @@ export class TestListComponent implements OnInit {
         // console.log(answerss)
 
       const resultObj = JSON.stringify(result);
-      this.questionService.submitTestLast(resultObj).subscribe((data) => {
+      this.questionService.submitTestLast(result).subscribe((data) => {
         this.compareAnswer(data.id);
         const title = 'Gửi Test Thành Công';
         showToastSuccess(title);
@@ -331,26 +354,25 @@ export class TestListComponent implements OnInit {
     let show = '';
     const listChoosed = [];
     this.questionService.compareAnswerQues(resultId).subscribe((result) => {
-      alert("Co vao khong ?")
       const listWrongAnswer = result.answers;
       // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < listWrongAnswer.length; i++) {
         listChoosed.push(listWrongAnswer[i].id);
       }
-
       // @ts-ignore
       this.questionService.compareAnswerTest(result.test.id).subscribe((question) => {
         show = `
-                <div style="margin-top: 100px!important;" class="container-xl">
-        <div class="table-responsive">
+<!--                <div style="margin-top: 100px!important;" class="container-xl">-->
+        <div class="table-responsive" style="overflow:hidden">
             <div class="table-wrapper">
                 <div class="table-title">
-                    <div class="row">
+                    <div class="row" >
                         <div class="col-sm-6">
-                            <h2>Quizz</h2>
+                            <h2>Kết Quả Bài Làm</h2>
                         </div>
                     </div>
                 </div>
+                <br>
                 <table class="table table-striped table-hover">
                     <thead>
                     </thead>
@@ -370,8 +392,8 @@ export class TestListComponent implements OnInit {
                         <h6 style="margin: 10px 0px">Question ${i + 1}: ${question[i].content}</h6>
                         <div class="form-check" style="margin-left: 10px" id="show${question[i].id}">`;
           name = i + '';
-      }
-        this.questionService.compareAnswerTest(answerId).subscribe((answer) => {
+
+          this.questionService.compareAnswerResult(answerId).subscribe((answer) => {
           const idques = answer[0].question.id;
           let str = '';
           if (typeQuestion === 1) {
@@ -418,20 +440,24 @@ export class TestListComponent implements OnInit {
           document.getElementById('show' + idques).innerHTML = str;
         }
         );
-        show += `</div>
+          show += `</div>
                     </tr>
                     `;
-        });
-      show += `</tbody> <a href="../home/home.html" type="button" class="btn btn-primary" style="margin-top: 20px;" id="btnSubmit">Back</a>
+        }
+        show += `</tbody> <a href="http://localhost:4200/home" type="button"
+        class="btn btn-primary" style="margin-top: 20px;margin-bottom: 20px" id="btnSubmit">Quay Lại</a>
                         </table>
             </div>
         </div>
     </div>`;
-      document.getElementById('display').innerHTML = show;
+        document.getElementById('display').innerHTML = show;
+      });
+      // tslint:disable-next-line:max-line-length
+
       this.currentResult(resultId);
       const title = 'Gửi Bài Thành Công';
       showToastSuccess(title);
-      },error => {
+      }, error => {
       const title = 'Thông báo';
       const content = 'Gửi Bài Thất Bại';
       showPopupError(title, content);
@@ -444,10 +470,10 @@ export class TestListComponent implements OnInit {
         const mark = result.mark;
         this.questionService.getMark(result.id).subscribe( (size) => {
           str += `<tr>
-                        <h6 style="margin: 10px 0px">Your Result: ${mark} / ${size}</h6>`;
+                        <h6 style="margin: 10px 0px">Số Điểm Của Bạn : ${mark} / ${size}</h6>`;
           document.getElementById('demo').innerHTML = str;
         });
       });
-    };
+    }
 
 }

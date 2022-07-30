@@ -68,7 +68,7 @@ export class SocketService {
   getCurrentNotification(id: number) {
     this.notificationService.getAllNoti(id).subscribe(data => {
       this.notification.next(data);
-    })
+    });
   }
 
 
